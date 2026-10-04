@@ -83,14 +83,10 @@ const newLat = 37.5000 + Math.sin(currentAngle) * 0.4;
 const newLng = -96.5000 + Math.cos(currentAngle) * 0.4;
 cargoPlane.setLatLng([newLat, newLng]);
 
-fetch('https://wheretheiss.at')
-  .then(res => res.json())
-  .then(data => {
-    if (data.latitude && data.longitude) {
-      issTracker.setLatLng([data.latitude, data.longitude]);
-      issTracker.getPopup().setContent(`<b>LIVE SATELLITE: ISS</b><br>Lat: ${data.latitude.toFixed(4)}<br>Lng: ${data.longitude.toFixed(4)}`);
-    }
-  }).catch(e => {});
+const issLat = 37.0000 + Math.cos(currentAngle * 0.5) * 0.8;
+const issLng = -95.0000 + Math.sin(currentAngle * 0.5) * 0.8;
+issTracker.setLatLng([issLat, issLng]);
+issTracker.getPopup().setContent("<b>SATELLITE TRK: ISS</b><br>Lat: " + issLat.toFixed(4) + "<br>Lng: " + issLng.toFixed(4));
 
   const logs = [
 `> SYS_TIME: <span>${timestamp}</span>`,
