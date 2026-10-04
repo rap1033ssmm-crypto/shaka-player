@@ -1,98 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KMKO TELEMETRY COCKPIT // MUSKOGEE COUNTY TERMINAL</title>
-    <!-- High-Velocity Map Rendering Engine Core -->
-    <link rel="stylesheet" href="https://unpkg.com" />
-    <script src="https://unpkg.com"></script>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospace; height: 100vh; overflow: hidden; display: flex; }
-        #radar-container { flex: 1; height: 100%; position: relative; }
-        #teleprinter-panel { width: 380px; height: 100%; background: #111115; border-left: 2px solid #22222b; display: flex; flex-direction: column; }
-        #header { padding: 15px; border-bottom: 2px solid #22222b; background: #0e0e12; }
-        #header h1 { font-size: 16px; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
-        #header p { font-size: 11px; color: #888; margin-top: 4px; }
-        #ticker-box { flex: 1; overflow-y: auto; padding: 15px; font-size: 12px; line-height: 1.6; }
-        .flight-line { border-bottom: 1px solid #1c1c24; padding: 6px 0; display: flex; flex-direction: column; }
-        .flight-line span { color: #ffaa00; }
-        .leaflet-container { background: #0a0a0c !important; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KMKO TELEMETRY COCKPIT // MUSKOGEE COUNTY TERMINAL</title>
+<link rel="stylesheet" href="https ://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https : // unpkg . com / leaflet @ 1 . 9 . 4 / dist / leaflet . js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospace; height: 100vh; overflow: hidden; display: flex; }
+#radar-container { flex: 1; height: 100%; position: relative; }
+#teleprinter-panel { width: 380px; height: 100%; background: #111115; border-left: 2px solid #22222b; display: flex; flex-direction: column; }
+#header { padding: 15px; border-bottom: 2px solid #22222b; background: #0e0e12; }
+#header h1 { font-size: 16px; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
+#header p { font-size: 11px; color: #888; margin-top: 4px; }
+#ticker-box { flex: 1; overflow-y: auto; padding: 15px; font-size: 12px; line-height: 1.6; }
+.flight-line { border-bottom: 1px solid #1c1c24; padding: 6px 0; display: flex; flex-direction: column; }
+.flight-line span { color: #ffaa00; }
+.leaflet-container { background: #0a0a0c !important; }
+</style>
 </head>
 <body>
-
-    <!-- Radar Canvas Viewport -->
-    <div id="radar-container"></div>
-
-    <!-- Right Side Teleprinter Data Stream Panel -->
-    <div id="teleprinter-panel">
-        <div id="header">
-            <h1>KMKO Systems Monitor</h1>
-            <p>Node WLT-LAND-OK-5111 // Muskogee County</p>
-        </div>
-        <div id="ticker-box">
-            <div class="flight-line">> System Initialized... Establishing Telemetry Streams...</div>
-        </div>
-    </div>
-
-    <script>
-        // Initialize Map centered right over Muskogee, OK
-        const map = L.map('radar-container', {
-            zoomControl: false,
-            attributionControl: false
-        }).setView([35.6132, -95.3858], 12);
-
-        // Load 100% unrestricted open map tiles
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19
-        }).addTo(map);
-
-        // Add bright anchor over downtown Muskogee
-        const baseAnchor = L.circleMarker([35.6132, -95.3858], {
-            color: '#00ffcc',
-            radius: 8,
-            weight: 2,
-            fillColor: '#00ffcc',
-            fillOpacity: 0.8
-        }).addTo(map);
-        baseAnchor.bindPopup("<b>NODE WLT-LAND-OK-5111</b><br>Muskogee, OK").openPopup();
-
-        const teleprinterStream = document.getElementById('ticker-box');
-
-        // High-Velocity Autonomous Telemetry Generator
-        function runSystemDiagnostics() {
-            try {
-                const timestamp = new Date().toLocaleTimeString();
-                teleprinterStream.innerHTML = ''; // Keep memory lean inside volatile RAM
-                
-                // Array of real-time server and node performance channels
-                const logs = [
-                    `> SYS_TIME: <span>${timestamp}</span>`,
-                    `> NODE_LAT: <span>35.6132° N</span> | LON: <span>95.3858° W</span>`,
-                    `> NET_OVERHEAD: <span>$0.00 Ceiling Locked</span>`,
-                    `> EDGE_COMPILER: <span>Serverless Active</span>`,
-                    `> INGEST_VALVE: <span>3.35 Inches Optimized</span>`,
-                    `> RAM_SHIELD: <span>100% Volatile Stream Only</span>`,
-                    `> DATA_STREAM_A: <span>ACTIVE // 24.8 kbps</span>`,
-                    `> DATA_STREAM_B: <span>STABLE // 0% Decay</span>`
-                ];
-
-                logs.forEach(text => {
-                    const logLine = document.createElement('div');
-                    logLine.className = 'flight-line';
-                    logLine.innerHTML = text;
-                    teleprinterStream.appendChild(logLine);
-                });
-            } catch (error) {
-                console.log("Telemetry sync hold...");
-            }
-        }
-
-        // Fire the moving telemetry system instantly, updating every 1000ms
-        runSystemDiagnostics();
-        setInterval(runSystemDiagnostics, 1000);
-    </script>
+<div id="radar-container"></div>
+<div id="teleprinter-panel">
+<div id="header">
+<h1>KMKO Systems Monitor</h1>
+<p>Node WLT-LAND-OK-5111 // Muskogee County</p>
+</div>
+<div id="ticker-box">
+<div class="flight-line">> System Initialized... Establishing Telemetry Streams...</div>
+</div>
+</div>
+<script>
+const map = L.map('radar-container', {
+zoomControl: false,
+attributionControl: false
+}).setView([37.0000, -97.0000], 6);
+L.tileLayer('https : // {s} . tile . openstreetmap . org / {z} / {x} / {y} . png', {
+maxZoom: 19
+}).addTo(map);
+const baseAnchor = L.circleMarker([37.0000, -97.0000], {
+color: '#00ffcc',
+radius: 8,
+weight: 2,
+fillColor: '#00ffcc',
+fillOpacity: 0.8
+}).addTo(map);
+baseAnchor.bindPopup("<b>REGIONAL SYSTEM NODE</b><br>OK-KS Border Area").openPopup();
+const teleprinterStream = document.getElementById('ticker-box');
+function runSystemDiagnostics() {
+try {
+const timestamp = new Date().toLocaleTimeString();
+teleprinterStream.innerHTML = '';
+const logs = [
+`> SYS_TIME: <span>${timestamp}</span>`,
+`> REGION_CTR: <span>37.0000° N</span> | <span>97.0000° W</span>`,
+`> REGIONAL_RESOURCES: <span>Active & Tracking</span>`,
+`> DATA_STREAM_A: <span>ONLINE // 0% Decay</span>`
+];
+logs.forEach(text => {
+const logLine = document.createElement('div');
+logLine.className = 'flight-line';
+logLine.innerHTML = text;
+teleprinterStream.appendChild(logLine);
+});
+} catch (error) { console.log("Sync delay..."); }
+}
+runSystemDiagnostics();
+setInterval(runSystemDiagnostics, 1000);
+</script>
 </body>
 </html>
