@@ -55,7 +55,16 @@ fillColor: '#00ffcc',
 fillOpacity: 0.8
 }).addTo(map);
 baseAnchor.bindPopup("<b>REGIONAL SYSTEM NODE</b><br>OK-KS Border Area").openPopup();
-const teleprinterStream = document.getElementById('ticker-box');
+const starlinkFleet = L.layerGroup().addTo(map);
+const weatherAlerts = L.layerGroup().addTo(map);
+const powerOutages = L.layerGroup().addTo(map);
+
+const starlinkPositions = [
+  { id: "SL-501", lat: 38.2, lng: -96.5 },
+  { id: "SL-502", lat: 36.8, lng: -94.8 },
+  { id: "SL-503", lat: 37.5, lng: -98.1 }
+];
+  const teleprinterStream = document.getElementById('ticker-box');
 let currentAngle = 0;
 const cargoPlane = L.circleMarker([37.5000, -96.5000], {
   color: '#ffaa00',
@@ -105,6 +114,31 @@ fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojso
       }
     });
   }).catch(e => {});
+  starlinkFleet.clearLayers();
+starlinkPositions.forEach(sat => {
+  sat.lat += Math.sin(currentAngle * 0.1) * 0.01;
+  sat.lng += Math.cos(currentAngle * 0.1) * 0.01;
+  L.circleMarker([sat.lat, sat.lng], {
+    color: '#00bfff', radius: 4, weight: 1, fillColor: '#00bfff', fillOpacity: 0.8
+  }).addTo(starlinkFleet).bindPopup("<b>STARLINK SATELLITE</b><br>ID: " + sat.id);
+});
+
+weatherAlerts.clearLayers();
+fetch('https://weather.gov')
+  .then(res => res.json())
+  .then(data => {
+    if (data.features) {
+      data.features.slice(0, 10).forEach(alert => {
+        if (alert.geometry && alert.geometry.type === "Point") {
+          const wCoords = alert.geometry.coordinates;
+          L.circle([wCoords[1], wCoords[0]], {
+            color: '#ffaa00', radius: 30000, weight: 2, fillColor: '#ffaa00', fillOpacity: 0.2
+          }).addTo(weatherAlerts).bindPopup("<b>WEATHER ALERT</b><br>" + alert.properties.event + "<br>" + alert.properties.areaDesc);
+        }
+      });
+    }
+  }).catch(e => {});
+
 
   issTracker.getPopup().setContent("<b>SATELLITE TRK: ISS</b><br>Lat: " + issLat.toFixed(4) + "<br>Lng: " + issLng.toFixed(4));
 
