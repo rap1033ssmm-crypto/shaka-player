@@ -55,11 +55,44 @@ fillOpacity: 0.8
 }).addTo(map);
 baseAnchor.bindPopup("<b>REGIONAL SYSTEM NODE</b><br>OK-KS Border Area").openPopup();
 const teleprinterStream = document.getElementById('ticker-box');
-function runSystemDiagnostics() {
+let currentAngle = 0;
+const cargoPlane = L.circleMarker([37.5000, -96.5000], {
+  color: '#ffaa00',
+  radius: 6,
+  weight: 2,
+  fillColor: '#ffaa00',
+  fillOpacity: 0.9
+}).addTo(map);
+cargoPlane.bindPopup("<b>LOGISTICS ASSET: BC-014</b><br>Sector Transit Active");
+
+const issTracker = L.circleMarker([37.0000, -95.0000], {
+  color: '#ff0055',
+  radius: 8,
+  weight: 2,
+  fillColor: '#ff0055',
+  fillOpacity: 1
+}).addTo(map);
+issTracker.bindPopup("<b>LIVE SATELLITE: ISS</b><br>Fetching orbital coordinates...");
+
+  function runSystemDiagnostics() {
 try {
 const timestamp = new Date().toLocaleTimeString();
 teleprinterStream.innerHTML = '';
-const logs = [
+currentAngle += 0.05;
+const newLat = 37.5000 + Math.sin(currentAngle) * 0.4;
+const newLng = -96.5000 + Math.cos(currentAngle) * 0.4;
+cargoPlane.setLatLng([newLat, newLng]);
+
+fetch('https://wheretheiss.at')
+  .then(res => res.json())
+  .then(data => {
+    if (data.latitude && data.longitude) {
+      issTracker.setLatLng([data.latitude, data.longitude]);
+      issTracker.getPopup().setContent(`<b>LIVE SATELLITE: ISS</b><br>Lat: ${data.latitude.toFixed(4)}<br>Lng: ${data.longitude.toFixed(4)}`);
+    }
+  }).catch(e => {});
+
+  const logs = [
 `> SYS_TIME: <span>${timestamp}</span>`,
 `> REGION_CTR: <span>37.0000° N</span> | <span>97.0000° W</span>`,
 `> REGIONAL_RESOURCES: <span>Active & Tracking</span>`,
