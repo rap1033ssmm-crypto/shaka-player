@@ -9,7 +9,14 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospace; height: 100vh; overflow: hidden; display: flex; }
-#radar-container { flex: 1; height: 100%; position: relative; }
+#radar-container {
+  flex: 1;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
 #teleprinter-panel { width: 380px; height: 100%; background: #111115; border-left: 2px solid #22222b; display: flex; flex-direction: column; }
 #header { padding: 15px; border-bottom: 2px solid #22222b; background: #0e0e12; }
 #header h1 { font-size: 16px; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
@@ -17,7 +24,7 @@ body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospac
 #ticker-box { flex: 1; overflow-y: auto; padding: 15px; font-size: 12px; line-height: 1.6; }
 .flight-line { border-bottom: 1px solid #1c1c24; padding: 6px 0; display: flex; flex-direction: column; }
 .flight-line span { color: #ffaa00; }
-.leaflet-container { background: #0a0a0c !important; }
+
 </style>
 </head>
 <body>
