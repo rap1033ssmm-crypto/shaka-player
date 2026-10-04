@@ -87,7 +87,26 @@ cargoPlane.setLatLng([newLat, newLng]);
 const issLat = 37.0000 + Math.cos(currentAngle * 0.5) * 0.8;
 const issLng = -95.0000 + Math.sin(currentAngle * 0.5) * 0.8;
 issTracker.setLatLng([issLat, issLng]);
-issTracker.getPopup().setContent("<b>SATELLITE TRK: ISS</b><br>Lat: " + issLat.toFixed(4) + "<br>Lng: " + issLng.toFixed(4));
+fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson')
+  .then(res => res.json())
+  .then(data => {
+    data.features.forEach(quake => {
+      const coords = quake.geometry.coordinates;
+      const mag = quake.properties.mag;
+      const place = quake.properties.place;
+      if (coords && coords.length >= 2) {
+        L.circle([coords[1], coords[0]], {
+          color: '#ff3333',
+          radius: mag * 25000,
+          weight: 2,
+          fillColor: '#ff3333',
+          fillOpacity: 0.4
+        }).addTo(map).bindPopup("<b>HAZARD DETECTED</b><br>Mag: " + mag + "<br>" + place);
+      }
+    });
+  }).catch(e => {});
+
+  issTracker.getPopup().setContent("<b>SATELLITE TRK: ISS</b><br>Lat: " + issLat.toFixed(4) + "<br>Lng: " + issLng.toFixed(4));
 
   const logs = [
 `> SYS_TIME: <span>${timestamp}</span>`,
