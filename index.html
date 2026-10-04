@@ -65,7 +65,7 @@
         async function fetchMuskogeeAirspace() {
             try {
                 // Fetch flights within a 1-degree coordinate box around Muskogee County
-                const response = await fetch('https://allorigins.win' + encodeURIComponent('https://opensky-network.org'));
+                const response = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent('https://opensky-network.org/api/states/all?lamin=33.5&lamax=37.0&lomin=-98.5&lomax=-94.0'));
                 if (!response.ok) return;
                 const data = await response.json();
                 
