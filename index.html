@@ -39,7 +39,83 @@
     </div>
 
     <script>
-        // System initialization logic will drop here next
+        // Initialize the Radar Map centered over Muskogee County
+const map = L.map('radar-container', {
+    zoomControl: false,
+    attributionControl: false
+}).setView([35.6132, -95.3858], 11);
+
+// Inject professional dark-mode map tile layouts
+L.tileLayer('https://{s}://{z}/{x}/{y}.png', {
+    maxZoom: 18
+}).addTo(map);
+
+// Add a neon indicator tracking anchor right over Muskogee
+const baseAnchor = L.circleMarker([35.6132, -95.3858], {
+    color: '#00ffcc',
+    radius: 6,
+    weight: 2,
+    fillColor: '#00ffcc',
+    fillOpacity: 0.8
+}).addTo(map);
+baseAnchor.bindPopup("<b>NODE WLT-LAND-OK-5111</b><br>Muskogee, OK").openPopup();
+
+console.log("System Status: Map engine pinned to Muskogee County coordinates.");
+
+        // Step 3: Open Data Loop - Fetching live aviation telemetry over Muskogee County
+let flightMarkers = {};
+const teleprinterStream = document.getElementById('ticker-box');
+
+async function fetchMuskogeeAirspace() {
+    try {
+        // Direct un-throttled open access stream centered over Muskogee County coordinates
+        const response = await fetch('https://allorigins.win' + encodeURIComponent('https://adsbexchange.com'));
+        if (!response.ok) return;
+        const data = await response.json();
+        
+        if (data && data.ac) {
+            teleprinterStream.innerHTML = ''; // Clear stale ticker lines inside volatile RAM
+            
+            data.ac.forEach(aircraft => {
+                // Verify valid latitude and longitude coordinates exist
+                if (aircraft.lat && aircraft.lon) {
+                    const id = aircraft.hex;
+                    const callsign = aircraft.flight ? aircraft.flight.trim() : 'UNKNOWN';
+                    const altitude = aircraft.alt_baro ? aircraft.alt_baro + ' ft' : 'GROUND';
+                    const speed = aircraft.gs ? Math.round(aircraft.gs) + ' knots' : '0 kts';
+                    
+                    // Render or update the visual marker node on the map canvas
+                    if (flightMarkers[id]) {
+                        flightMarkers[id].setLatLng([aircraft.lat, aircraft.lon]);
+                    } else {
+                        flightMarkers[id] = L.circleMarker([aircraft.lat, aircraft.lon], {
+                            color: '#ffaa00',
+                            radius: 5,
+                            weight: 2,
+                            fillColor: '#ffaa00',
+                            fillOpacity: 0.8
+                        }).addTo(map);
+                    }
+                    
+                    flightMarkers[id].bindPopup(`<b>Flight: ${callsign}</b><br>Alt: ${altitude}<br>Spd: ${speed}`);
+                    
+                    // Stream the live string telemetry directly down the teleprinter column
+                    const logLine = document.createElement('div');
+                    logLine.className = 'flight-line';
+                    logLine.innerHTML = `> REG: <span>${id.toUpperCase()}</span> | CALL: <span>${callsign}</span><br>ALT: ${altitude} | SPD: ${speed}`;
+                    teleprinterStream.appendChild(logLine);
+                }
+            });
+        }
+    } catch (error) {
+        console.log("Telemetry Sync Hold... Reconnecting path.");
+    }
+}
+
+// Fire the ingestion loop immediately, and refresh every 2.5 seconds
+fetchMuskogeeAirspace();
+setInterval(fetchMuskogeeAirspace, 2500);
+
     </script>
 </body>
 </html>
