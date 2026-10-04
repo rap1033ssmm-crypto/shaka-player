@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KMKO AIRSPACE RADAR // MUSKOGEE COUNTY TERMINAL</title>
     <!-- High-Velocity Map Rendering Engine Core -->
-    <link rel="stylesheet" href="https://unpkg.com" />
-    <script src="https://unpkg.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospace; height: 100vh; overflow: hidden; display: flex; }
@@ -46,7 +46,7 @@ const map = L.map('radar-container', {
 }).setView([35.6132, -95.3858], 11);
 
 // Inject professional dark-mode map tile layouts
-L.tileLayer('https://{s}://{z}/{x}/{y}.png', {
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
     maxZoom: 18
 }).addTo(map);
 
