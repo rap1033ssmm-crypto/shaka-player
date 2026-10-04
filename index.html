@@ -73,10 +73,10 @@ async function fetchMuskogeeAirspace() {
         if (!response.ok) return;
         const data = await response.json();
         
-        if (data && data.ac) {
+        if (data && data.aircraft) {
             teleprinterStream.innerHTML = ''; // Clear stale ticker lines inside volatile RAM
             
-            data.ac.forEach(aircraft => {
+            data.aircraft.forEach(aircraft => {
                 // Verify valid latitude and longitude coordinates exist
                 if (aircraft.lat && aircraft.lon) {
                     const id = aircraft.hex;
