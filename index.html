@@ -69,7 +69,7 @@ const teleprinterStream = document.getElementById('ticker-box');
 async function fetchMuskogeeAirspace() {
     try {
         // Direct un-throttled open access stream centered over Muskogee County coordinates
-        const response = await fetch('https://allorigins.win' + encodeURIComponent('https://adsbexchange.com'));
+        const response = await fetch('https://flight-radar-api.pages.dev/api/airspace?lat=35.6132&lon=-95.3858&rad=50');
         if (!response.ok) return;
         const data = await response.json();
         
