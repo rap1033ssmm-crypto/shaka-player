@@ -55,6 +55,16 @@ fillColor: '#00ffcc',
 fillOpacity: 0.8
 }).addTo(map);
 baseAnchor.bindPopup("<b>REGIONAL SYSTEM NODE</b><br>OK-KS Border Area").openPopup();
+  const profileNode1 = L.circleMarker([35.6132, -95.3858], {
+  color: '#00ffcc', radius: 10, weight: 3, fillColor: '#00ffcc', fillOpacity: 0.8
+}).addTo(map);
+profileNode1.bindPopup("<b>ALL AROUND THE WORLD WITH THEMR</b><br><span style='color:#888;'>NODE 01: MUSKOGEE OK HQ</span><br><br><audio controls style='width:160px;height:24px;'></audio><br><br><a href='https://share.google/rYXZX2uRy4GZ31rA3' target='_blank' style='display:inline-block;background:#00ffcc;color:#000;text-decoration:none;font-weight:bold;font-size:10px;padding:5px 8px;border-radius:2px;letter-spacing:1px;'>LAUNCH CORE LINK</a>");
+
+const profileNode2 = L.circleMarker([35.6500, -95.3000], {
+  color: '#ffaa00', radius: 10, weight: 3, fillColor: '#ffaa00', fillOpacity: 0.8
+}).addTo(map);
+profileNode2.bindPopup("<b>ALL AROUND THE WORLD WITH THEMR</b><br><span style='color:#888;'>NODE 02: EXPANSION LANES</span><br><br><audio controls style='width:160px;height:24px;'></audio><br><br><a href='https://share.google/GI9SekPEhRyZDMEdz' target='_blank' style='display:inline-block;background:#ffaa00;color:#000;text-decoration:none;font-weight:bold;font-size:10px;padding:5px 8px;border-radius:2px;letter-spacing:1px;'>LAUNCH CORE LINK</a>");
+
 const starlinkFleet = L.layerGroup().addTo(map);
 const weatherAlerts = L.layerGroup().addTo(map);
 const powerOutages = L.layerGroup().addTo(map);
