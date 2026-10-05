@@ -47,6 +47,11 @@ attributionControl: false
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 maxZoom: 19
 }).addTo(map);
+  L . tileLayer ( 'https://tilecache.rainviewer.com/v2/radar/nowcast_81432f9bfbb0/256/{z}/{x}/{y}/2/1_1.png' , {
+  opacity: 0.45,
+  zIndex: 10
+}).addTo(map);
+
 const baseAnchor = L.circleMarker([37.0000, -97.0000], {
 color: '#00ffcc',
 radius: 8,
