@@ -75,6 +75,13 @@ const weatherAlerts = L.layerGroup().addTo(map);
 const powerOutages = L.layerGroup().addTo(map);
  const globalAirspace = L.layerGroup().addTo(map); 
 
+  const satelliteSwarm = L.layerGroup().addTo(map);
+const cargoVectors = L.layerGroup().addTo(map);
+const patrolVectors = L.layerGroup().addTo(map);
+
+const globalSats = Array.from({length: 12}, (_, i) => ({ id: `SAT-${100+i}`, lat: 20 + i * 4, lng: -120 + i * 6, speedX: 0.15 + i*0.02, speedY: 0.1 + i*0.01 }));
+const countryFlights = Array.from({length: 10}, (_, i) => ({ id: `LOG-X${20+i}`, lat: 32 + i * 1.5, lng: -105 + i * 2, speedX: 0.04, speedY: 0.02 }));
+
 const starlinkPositions = [
   { id: "SL-501", lat: 38.2, lng: -96.5 },
   { id: "SL-502", lat: 36.8, lng: -94.8 },
@@ -159,6 +166,37 @@ fetch('https://weather.gov')
     }
   }).catch(e => {});
 
+  satelliteSwarm.clearLayers();
+globalSats.forEach(sat => {
+  sat.lat += sat.speedY;
+  sat.lng += sat.speedX;
+  if (sat.lat > 75 || sat.lat < -75) sat.speedY *= -1;
+  if (sat.lng > 180 || sat.lng < -180) sat.speedX *= -1;
+  L.circleMarker([sat.lat, sat.lng], {
+    color: '#00bfff', radius: 4, weight: 1, fillColor: '#00bfff', fillOpacity: 0.8
+  }).addTo(satelliteSwarm).bindPopup("<b>ORBITAL CORE RE-ROUTE</b><br>ID: " + sat.id + "<br>Status: Direct Feed Link");
+});
+
+cargoVectors.clearLayers();
+countryFlights.forEach(flt => {
+  flt.lat += (Math.random() - 0.5) * 0.05 + flt.speedY;
+  flt.lng += (Math.random() - 0.5) * 0.05 + flt.speedX;
+  if (flt.lat > 50 || flt.lat < 24) flt.speedY *= -1;
+  if (flt.lng > -65 || flt.lng < -125) flt.speedX *= -1;
+  L.circleMarker([flt.lat, flt.lng], {
+    color: '#a349a4', radius: 5, weight: 1, fillColor: '#a349a4', fillOpacity: 0.85
+  }).addTo(cargoVectors).bindPopup("<b>LOGISTICS STREAM TRK</b><br>ID: " + flt.id + "<br>Route: Intra-Sector Path");
+});
+
+patrolVectors.clearLayers();
+for (let i = 0; i < 8; i++) {
+  const pAngle = currentAngle * 1.5 + (i * Math.PI / 4);
+  const pLat = 35.6132 + Math.sin(pAngle) * 0.15;
+  const pLng = -95.3858 + Math.cos(pAngle) * 0.15;
+  L.circleMarker([pLat, pLng], {
+    color: '#ff3333', radius: 3, weight: 1, fillColor: '#ff3333', fillOpacity: 0.9
+  }).addTo(patrolVectors).bindPopup("<b>TACTICAL PERIMETER SENSOR</b><br>Node: OK-SECTOR-" + (i+1));
+}
 
   issTracker.getPopup().setContent("<b>SATELLITE TRK: ISS</b><br>Lat: " + issLat.toFixed(4) + "<br>Lng: " + issLng.toFixed(4));
 
