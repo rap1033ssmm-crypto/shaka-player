@@ -47,7 +47,7 @@ attributionControl: false
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 maxZoom: 19
 }).addTo(map);
- L . tileLayer ( 'https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png' , {
+ const liveRadarLayer = L . tileLayer ( 'https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png' , {
   opacity: 0.40,
   zIndex: 10
 }).addTo(map);
@@ -229,9 +229,51 @@ logLine.className = 'flight-line';
 logLine.innerHTML = text;
 teleprinterStream.appendChild(logLine);
 });
+  triggerRadarChime();
 } catch (error) { console.log("Sync delay..."); }
 }
-runSystemDiagnostics();
+// INTERACTIVE RADAR TOGGLE INTERFACE
+const toggleContainer = document.createElement('div');
+toggleContainer.style = "position: absolute; top: 15px; right: 340px; z-index: 1000; font-family: 'Courier New', monospace;";
+toggleContainer.innerHTML = `<button id='radarToggleBtn' style='background:#111116; border:1px solid #22222b; color:#00ffcc; font-size:11px; padding:6px 12px; border-radius:2px; cursor:pointer; letter-spacing:1px; font-weight:bold;'>RADAR_OVERLAY: ON</button>`;
+document.body.appendChild(toggleContainer);
+
+let radarState = true;
+document.getElementById('radarToggleBtn').addEventListener('click', () => {
+  radarState = !radarState;
+  if (radarState) {
+    map.addLayer(liveRadarLayer);
+    document.getElementById('radarToggleBtn').innerText = 'RADAR_OVERLAY: ON';
+    document.getElementById('radarToggleBtn').style.color = '#00ffcc';
+  } else {
+    map.removeLayer(liveRadarLayer);
+    document.getElementById('radarToggleBtn').innerText = 'RADAR_OVERLAY: OFF';
+    document.getElementById('radarToggleBtn').style.color = '#ff3333';
+  }
+});
+
+// RETRO TACTICAL AUDIO INTERCEPT
+function triggerRadarChime() {
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // High-fidelity electronic frequency
+    
+    gainNode.gain.setValueAtTime(0.04, audioCtx.currentTime); // Subtle volume baseline
+    gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.15); // Fast crisp fade-out
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + 0.15);
+  } catch(e) {}
+}
+
+  runSystemDiagnostics();
 setInterval(runSystemDiagnostics, 1000);
 </script>
 </body>
