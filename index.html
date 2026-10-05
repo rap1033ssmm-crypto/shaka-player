@@ -166,37 +166,42 @@ fetch('https://weather.gov')
     }
   }).catch(e => {});
 
-  satelliteSwarm.clearLayers();
-globalSats.forEach(sat => {
-  sat.lat += sat.speedY;
-  sat.lng += sat.speedX;
-  if (sat.lat > 75 || sat.lat < -75) sat.speedY *= -1;
-  if (sat.lng > 180 || sat.lng < -180) sat.speedX *= -1;
+ satelliteSwarm.clearLayers();
+globalSats.forEach((sat, index) => {
+  // Use unique sinusoidal offsets based on time and index for true worldwide variance
+  sat.lat += Math.sin(currentAngle * 0.05 + index) * 0.4;
+  sat.lng += Math.cos(currentAngle * 0.03 + index) * 0.5;
+  if (sat.lat > 75) sat.lat = -75; if (sat.lat < -75) sat.lat = 75;
+  if (sat.lng > 180) sat.lng = -180; if (sat.lng < -180) sat.lng = 180;
   L.circleMarker([sat.lat, sat.lng], {
     color: '#00bfff', radius: 4, weight: 1, fillColor: '#00bfff', fillOpacity: 0.8
-  }).addTo(satelliteSwarm).bindPopup("<b>ORBITAL CORE RE-ROUTE</b><br>ID: " + sat.id + "<br>Status: Direct Feed Link");
+  }).addTo(satelliteSwarm).bindPopup("<b>GLOBAL SECTOR DATA LINK</b><br>ID: " + sat.id + "<br>Status: Secure Stream Active");
 });
 
 cargoVectors.clearLayers();
-countryFlights.forEach(flt => {
-  flt.lat += (Math.random() - 0.5) * 0.05 + flt.speedY;
-  flt.lng += (Math.random() - 0.5) * 0.05 + flt.speedX;
-  if (flt.lat > 50 || flt.lat < 24) flt.speedY *= -1;
-  if (flt.lng > -65 || flt.lng < -125) flt.speedX *= -1;
+countryFlights.forEach((flt, index) => {
+  // Lock them on dynamic wandering flight paths across OK, KS, TX and neighboring regions
+  flt.lat += (Math.sin(currentAngle * 0.08 + index) * 0.08) + (Math.random() - 0.5) * 0.02;
+  flt.lng += (Math.cos(currentAngle * 0.06 + index) * 0.12) + (Math.random() - 0.5) * 0.02;
+  // Boundaries to keep them active over central US lanes (TX down to KS up)
+  if (flt.lat > 45 || flt.lat < 26) flt.lat = 35 + (Math.random() - 0.5) * 5;
+  if (flt.lng > -85 || flt.lng < -110) flt.lng = -98 + (Math.random() - 0.5) * 5;
   L.circleMarker([flt.lat, flt.lng], {
     color: '#a349a4', radius: 5, weight: 1, fillColor: '#a349a4', fillOpacity: 0.85
-  }).addTo(cargoVectors).bindPopup("<b>LOGISTICS STREAM TRK</b><br>ID: " + flt.id + "<br>Route: Intra-Sector Path");
+  }).addTo(cargoVectors).bindPopup("<b>REGIONAL TRANSIT MONITOR</b><br>ID: " + flt.id + "<br>Sector: Central United States");
 });
 
 patrolVectors.clearLayers();
 for (let i = 0; i < 8; i++) {
-  const pAngle = currentAngle * 1.5 + (i * Math.PI / 4);
-  const pLat = 35.6132 + Math.sin(pAngle) * 0.15;
-  const pLng = -95.3858 + Math.cos(pAngle) * 0.15;
+  // Give each perimeter patrol its own unique elliptical orbit tracking around HQ
+  const individualSpeed = (currentAngle * (1.0 + (i * 0.15))) + (i * Math.PI / 4);
+  const pLat = 35.6132 + Math.sin(individualSpeed) * (0.08 + (i * 0.02));
+  const pLng = -95.3858 + Math.cos(individualSpeed) * (0.12 + (i * 0.03));
   L.circleMarker([pLat, pLng], {
     color: '#ff3333', radius: 3, weight: 1, fillColor: '#ff3333', fillOpacity: 0.9
   }).addTo(patrolVectors).bindPopup("<b>TACTICAL PERIMETER SENSOR</b><br>Node: OK-SECTOR-" + (i+1));
 }
+
 
   issTracker.getPopup().setContent("<b>SATELLITE TRK: ISS</b><br>Lat: " + issLat.toFixed(4) + "<br>Lng: " + issLng.toFixed(4));
 
