@@ -77,6 +77,8 @@ const starlinkPositions = [
 ];
   const teleprinterStream = document.getElementById('ticker-box');
 let currentAngle = 0;
+  let networkThrottleCounter = 0;
+  
 const cargoPlane = L.circleMarker([37.5000, -96.5000], {
   color: '#ffaa00',
   radius: 6,
@@ -100,29 +102,34 @@ try {
 const timestamp = new Date().toLocaleTimeString();
 teleprinterStream.innerHTML = '';
 currentAngle += 0.05;
+networkThrottleCounter++;
+if (networkThrottleCounter >= 30 || globalAirspace.getLayers().length === 0) {
+  networkThrottleCounter = 0;
   globalAirspace.clearLayers();
-fetch('https://opensky-network.org')
-  .then(res => res.json())
-  .then(data => {
-    if (data && data.states) {
-      data.states.slice(0, 45).forEach(flight => {
-        const fLat = flight[6];
-        const fLng = flight[5];
-        const callsign = flight[1] ? flight[1].trim() : 'TRACK';
-        const altitude = flight[7] ? Math.round(flight[7] * 3.28084) : 0;
-        
-        if (fLat && fLng) {
-          L.circleMarker([fLat, fLng], {
-            color: '#a349a4',
-            radius: 5,
-            weight: 1,
-            fillColor: '#a349a4',
-            fillOpacity: 0.85
-          }).addTo(globalAirspace).bindPopup("<b>GLOBAL SECTOR VECTOR</b><br>ID: " + callsign + "<br>Alt: " + altitude + " ft");
-        }
-      });
-    }
-  }).catch(e => {});
+  fetch('fetch('https://opensky-network.org/api/states/all')
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.states) {
+        data.states.slice(0, 45).forEach(flight => {
+          const fLat = flight[6];
+          const fLng = flight[5];
+          const callsign = flight[1] ? flight[1].trim() : 'TRACK';
+          const altitude = flight[7] ? Math.round(flight[7] * 3.28084) : 0;
+          
+          if (fLat && fLng) {
+            L.circleMarker([fLat, fLng], {
+              color: '#a349a4',
+              radius: 5,
+              weight: 1,
+              fillColor: '#a349a4',
+              fillOpacity: 0.85
+            }).addTo(globalAirspace).bindPopup("<b>GLOBAL SECTOR VECTOR</b><br>ID: " + callsign + "<br>Alt: " + altitude + " ft");
+          }
+        });
+      }
+    }).catch(e => {});
+}
+
 
 const newLat = 37.5000 + Math.sin(currentAngle) * 0.4;
 const newLng = -96.5000 + Math.cos(currentAngle) * 0.4;
