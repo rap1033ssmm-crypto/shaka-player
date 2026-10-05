@@ -205,12 +205,24 @@ for (let i = 0; i < 8; i++) {
 
   issTracker.getPopup().setContent("<b>SATELLITE TRK: ISS</b><br>Lat: " + issLat.toFixed(4) + "<br>Lng: " + issLng.toFixed(4));
 
-  const logs = [
-`> SYS_TIME: <span>${timestamp}</span>`,
-`> REGION_CTR: <span>37.0000° N</span> | <span>97.0000° W</span>`,
-`> REGIONAL_RESOURCES: <span>Active & Tracking</span>`,
-`> DATA_STREAM_A: <span>ONLINE // 0% Decay</span>`
+ const logs = [
+  `> SYS_TIME: <span>${timestamp}</span>`,
+  `> REGION_CTR: <span>37.0000° N</span> | <span>97.0000° W</span>`,
+  `> REGIONAL_RESOURCES: <span style='color:#00ffcc;'>Active & Tracking</span>`,
+  `> CORE_MATRIX_DATA_FEED: <span style='color:#00ffcc;'>ONLINE // 0% Decay</span>`,
+  `--------------------------------------------------`,
+  `[ORBITAL RE-ROUTE METRICS]`,
+  ...globalSats.slice(0, 3).map(sat => `> ${sat.id} : LOC[${sat.lat.toFixed(4)}, ${sat.lng.toFixed(4)}] // TRK_OK`),
+  `--------------------------------------------------`,
+  `[DOMESTIC CARGO VECTOR STREAM]`,
+  ...countryFlights.slice(0, 4).map(flt => `> ${flt.id} : ALT[${Math.round(30000 + flt.lat*100)}ft] // POS_OK`),
+  `--------------------------------------------------`,
+  `[PERIMETER PATROL BOUNDARY SCANS]`,
+  `> NODE_OK_5111 : <span style='color:#ff3333;'>SEC_GRID_ACTIVE</span>`,
+  `> SWEEP_FREQ   : <span>1000ms Volatile Recycle</span>`,
+  `> INT_THREATS  : <span style='color:#00ffcc;'>0 DETECTED // SECTOR CLEAR</span>`
 ];
+
 logs.forEach(text => {
 const logLine = document.createElement('div');
 logLine.className = 'flight-line';
