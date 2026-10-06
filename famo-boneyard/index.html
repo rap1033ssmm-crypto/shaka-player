@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAMO NATION BONE YARD // ROYALTY PLAYER MATRIX</title>
+    <!-- Widget Capability Embedding Support -->
+    <meta name="widget-embedded" content="true">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #040406; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        
+        /* Elite Online Casino Header Layout */
+        #casino-top-vault { height: 80px; background: linear-gradient(180deg, #111116 0%, #08080c 100%); border-bottom: 2px solid #ffaa00; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.8); }
+        .branding-core { display: flex; align-items: center; gap: 12px; }
+        .crown-dot { width: 10px; height: 10px; background: #00ffcc; border-radius: 50%; box-shadow: 0 0 10px #00ffcc; }
+        .branding-text { font-size: 16px; font-weight: 900; letter-spacing: 2px; color: #ffaa00; text-transform: uppercase; }
+        
+        /* Integrated Media Streaming Deck Component */
+        .jukebox-deck { background: #12121a; border: 1px solid #222232; padding: 8px 20px; border-radius: 30px; display: flex; align-items: center; gap: 15px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+        .track-label { font-size: 11px; color: #00ffcc; font-weight: bold; width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .audio-ctrl-btn { background: none; border: none; color: #ffaa00; font-size: 14px; cursor: pointer; font-weight: bold; }
+        .audio-ctrl-btn:hover { color: #fff; }
+        audio { height: 28px; width: 180px; filter: invert(1) hue-rotate(180deg); }
+
+        /* Multi-Display Core Architecture Grid */
+        #casino-floor { flex: 1; display: grid; grid-template-columns: 280px 1fr 320px; gap: 20px; padding: 20px; height: calc(100vh - 80px); overflow: hidden; }
+        .tower-panel { background: #0b0b11; border: 1px solid #1c1c28; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .tower-header { border-bottom: 1px solid #222232; padding-bottom: 10px; margin-bottom: 15px; }
+        .tower-title { font-size: 13px; font-weight: 800; color: #ffaa00; letter-spacing: 1.5px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+        
+        /* Cinematic Video Broadcast Monitor Box */
+        .cinema-vault { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 8px; overflow: hidden; border: 1px solid #ffaa00; position: relative; margin-bottom: 15px; }
+        video { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* High-End Domino Felt Arena */
+        #domino-felt { background: radial-gradient(circle, #0e1612 0%, #050807 100%); border: 3px solid #1c1c28; border-radius: 16px; position: relative; box-shadow: inset 0 0 50px rgba(0,0,0,0.9), 0 10px 40px rgba(0,255,204,0.05); display: flex; flex-direction: column; justify-content: space-between; padding: 25px; border-color: #ffaa00; }
+        
+        /* Visualized Bone Yard Layout Elements */
+        .player-station { background: rgba(18,18,26,0.85); border: 1px solid #222232; border-radius: 10px; padding: 12px; display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(5px); }
+        .avatar-box { display: flex; align-items: center; gap: 10px; }
+        .avatar-circle { width: 32px; height: 32px; background: #ffaa00; color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 12px; }
+        .metric-badge { background: #14141f; padding: 4px 10px; border-radius: 12px; border: 1px solid #222232; font-size: 11px; color: #00ffcc; font-weight: bold; }
+        
+        /* Dynamic Domino Render Layer Canvas */
+        #game-board-canvas { flex: 1; margin: 20px 0; display: flex; align-items: center; justify-content: center; gap: 15px; position: relative; }
+        .domino-bone { width: 45px; height: 85px; background: linear-gradient(135deg, #1a1a24 0%, #111116 100%); border: 2px solid #ffaa00; border-radius: 6px; display: flex; flex-direction: column; justify-content: space-between; padding: 6px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 6px 15px rgba(0,0,0,0.6); position: relative; }
+        .domino-bone:hover { transform: translateY(-4px) scale(1.05); border-color: #00ffcc; box-shadow: 0 0 12px rgba(0,255,204,0.4); }
+        .bone-half { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2px; height: 32px; width: 100%; align-items: center; justify-items: center; }
+        .bone-line { width: 100%; height: 2px; background: #ffaa00; margin: 2px 0; }
+        .dot { width: 5px; height: 5px; background: #fff; border-radius: 50%; }
+        
+        /* Institutional Ticker logs */
+        .casino-ticker { background: #060609; border: 1px solid #1c1c28; border-radius: 6px; padding: 10px; font-family: monospace; font-size: 11px; color: #8e8e9f; height: 140px; overflow-y: auto; margin-top: auto; }
+        .ticker-row { border-bottom: 1px solid #14141f; padding: 4px 0; display: flex; justify-content: space-between; }
+        .ticker-row span { color: #00ffcc; font-weight: bold; }
+        .ticker-row em { color: #ffaa00; font-style: normal; }
+    </style>
+</head>
+<body>
+
+    <!-- Elite Casino Top Vault Bar -->
+    <div id="casino-top-vault">
+        <div class="branding-core">
+            <div class="crown-dot"></div>
+            <div class="branding-text">Famo Nation Bone Yard</div>
+        </div>
+        
+        <!-- Native Jukebox Track Streaming Deck Component -->
+        <div class="jukebox-deck">
+            <button class="audio-ctrl-btn" onclick="prevTrack()">⏮</button>
+            <button class="audio-ctrl-btn" id="play-pause-toggle" onclick="togglePlayback()">▶</button>
+            <button class="audio-ctrl-btn" onclick="nextTrack()">⏭</button>
+            <div class="track-label" id="current-track-title">Loading Audio Vault...</div>
+            <audio id="master-jukebox-audio" src="" controls></audio>
+        </div>
+    </div>
+     <!-- Main Casino Interactive Arena Floor Floor Grid -->
+    <div id="casino-floor">
+        
+        <!-- Left Side: Royalties & Asset Verification Pipeline Tower -->
+        <div class="tower-panel">
+            <div class="tower-header">
+                <div class="tower-title">🏆 PPRB & SRL Registry</div>
+            </div>
+            
+            <!-- Flawless Inbound MP4 Video File Upload Node Component -->
+            <label style="margin-bottom: 8px;">Network Studio Video Feed (.mp4)</label>
+            <div class="cinema-vault">
+                <video id="master-cinema-view" loop muted autoplay playsinline src="https://writerslegacyteampublishing.substack.com/"></video>
+            </div>
+            <input type="file" id="video-file-ingest" accept="video/mp4" style="margin-bottom: 20px; font-size: 11px;" onchange="loadLocalVideoAsset(event)">
+            
+            <div class="player-station" style="margin-bottom: 12px; background: #141420;">
+                <div>
+                    <div style="font-size: 11px; color:#64647a; font-weight:bold;">DIGITAL PERFORMANCE BADGE</div>
+                    <div style="font-size:13px; font-weight:bold; color:#fff;" id="metric-dpme">DPME // ACTIVE</div>
+                </div>
+                <div class="metric-badge" id="royalty-counter">0.00000000</div>
+            </div>
+            
+            <div class="player-station" style="background: #141420;">
+                <div>
+                    <div style="font-size: 11px; color:#64647a; font-weight:bold;">SYNCHRONIZATION LEDGER STATUS</div>
+                    <div style="font-size:13px; font-weight:bold; color:#ffaa00;">SRL COMPLIANT</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center Space: Premium Domino Felt Deck Arena -->
+        <div id="domino-felt">
+            <!-- Opponent Station Deck Panel Layout -->
+            <div class="player-station">
+                <div class="avatar-box">
+                    <div class="avatar-circle" style="background:#ff4d4d;">AI</div>
+                    <div>
+                        <div style="font-size:13px; font-weight:bold;">System Automation Node</div>
+                        <div style="font-size:10px; color:#8e8e9f;">Opponent Engine AI</div>
+                    </div>
+                </div>
+                <div class="metric-badge" id="opp-score">SCORE: 0</div>
+            </div>
+
+            <!-- Dynamic Domino Render Board Area -->
+            <div id="game-board-canvas">
+                <!-- Domino Game Tiles Render Inside This Matrix Component Block Natively -->
+            </div>
+
+            <!-- Master Player Station Deck Panel Layout -->
+            <div class="player-station" style="border-color: #00ffcc;">
+                <div class="avatar-box">
+                    <div class="avatar-circle">RP</div>
+                    <div>
+                        <div style="font-size:13px; font-weight:bold;">Famo Nation Media Records Label</div>
+                        <div style="font-size:10px; color:#00ffcc; font-weight:bold;">Network Administrator</div>
+                    </div>
+                </div>
+                <div class="metric-badge" id="player-score">SCORE: 0</div>
+            </div>
+        </div>
+
+        <!-- Right Side: Real-Time Audit Metrics Logs & System Shuffling Control Deck -->
+        <div class="tower-panel">
+            <div class="tower-header">
+                <div class="tower-title">🎛️ Command Board</div>
+            </div>
+            
+            <button class="audio-ctrl-btn" style="background:#ffaa00; color:#000; padding:12px; border-radius:6px; font-weight:800; text-transform:uppercase; font-size:12px; margin-bottom:15px; letter-spacing:1px; width:100%; display:block;" onclick="shuffleAndResetArenaGrid()">🔀 Shuffle Bone Yard</button>
+            <button class="audio-ctrl-btn" style="background:#14141f; border:1px solid #222232; color:#00ffcc; padding:10px; border-radius:6px; font-weight:bold; font-size:12px; width:100%; display:block; margin-bottom:20px;" onclick="simulateAILogicTurn()">🤖 Force AI Matchmove</button>
+            
+            <div style="font-size:11px; font-weight:bold; color:#64647a; margin-bottom:8px; text-transform:uppercase;">Audit Telemetry Streams</div>
+            <div class="casino-ticker" id="casino-log-deck">
+                <div class="ticker-row">> Bone Yard System Core... <span>READY</span></div>
+                <div class="ticker-row">> Global serverless execution limits set to flat <em>\$0.00 overhead ceiling</em>.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Complete Client-side Telemetry Streaming & Mechanical Routing Logic Engine Script -->
+    <script>
+        const audioVaultList = [
+            { title: "Famo Stream Radio Vol I", url: "https://writerslegacyteampublishing.substack.com/" },
+            { title: "Bone Yard Corporate Track", url: "https://writerslegacyteampublishing.substack.com/" },
+            { title: "Sovereign Ledger Vol IV", url: "https://writerslegacyteampublishing.substack.com/" }
+        ];
+
+        let currentTrackIdx = 0;
+        const playerAudio = document.getElementById('master-jukebox-audio');
+        const trackTitle = document.getElementById('current-track-title');
+        const playToggleBtn = document.getElementById('play-pause-toggle');
+        const logDeck = document.getElementById('casino-log-deck');
+        const boardCanvas = document.getElementById('game-board-canvas');
+        const pScoreText = document.getElementById('player-score');
+        const oScoreText = document.getElementById('opp-score');
+        const royaltyText = document.getElementById('royalty-counter');
+
+        let pScore = 0; let oScore = 0; let royaltyAccum = 0.00000000;
+
+        function loadTrack(idx) {
+            const track = audioVaultList[idx];
+            playerAudio.src = track.url;
+            trackTitle.innerText = track.title;
+            pushCasinoLog(`Audio track synchronized: <em>${track.title}</em>`);
+        }
+
+        function togglePlayback() {
+            if (playerAudio.paused) {
+                playerAudio.play();
+                playToggleBtn.innerText = "⏸";
+                pushCasinoLog("Sovereign Jukebox audio stream: <span>ACTIVE</span>");
+            } else {
+                playerAudio.pause();
+                playToggleBtn.innerText = "▶";
+                pushCasinoLog("Sovereign Jukebox audio stream: <span>PAUSED</span>");
+            }
+        }
+
+        function nextTrack() {
+            currentTrackIdx = (currentTrackIdx + 1) % audioVaultList.length;
+            loadTrack(currentTrackIdx); playerAudio.play(); playToggleBtn.innerText = "⏸";
+        }
+
+        function prevTrack() {
+            currentTrackIdx = (currentTrackIdx - 1 + audioVaultList.length) % audioVaultList.length;
+            loadTrack(currentTrackIdx); playerAudio.play(); playToggleBtn.innerText = "⏸";
+        }
+
+        function loadLocalVideoAsset(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const videoUrl = URL.createObjectURL(file);
+                const videoEl = document.getElementById('master-cinema-view');
+                videoEl.src = videoUrl; videoEl.play();
+                pushCasinoLog("Flawless internal MP4 studio feed loaded into display container layer.");
+            }
+        }
+
+        function pushCasinoLog(text) {
+            const row = document.createElement('div');
+            row.className = 'ticker-row';
+            row.innerHTML = `> ${text}`;
+            logDeck.appendChild(row);
+            logDeck.scrollTop = logDeck.scrollHeight;
+        }
+
+        function renderDominoSet(bones) {
+            boardCanvas.innerHTML = '';
+            bones.forEach(bone => {
+                const boneEl = document.createElement('div');
+                boneEl.className = 'domino-bone';
+                boneEl.onclick = () => executePlayMove(bone.top, bone.bottom);
+                
+                let topDots = ''; for(let i=0; i<bone.top; i++) topDots += '<div class="dot"></div>';
+                let botDots = ''; for(let i=0; i<bone.bottom; i++) botDots += '<div class="dot"></div>';
+
+                boneEl.innerHTML = `
+                    <div class="bone-half">${topDots}</div>
+                    <div class="bone-line"></div>
+                    <div class="bone-half">${botDots}</div>
+                `;
+                boardCanvas.appendChild(boneEl);
+            });
+        }
+
+        function shuffleAndResetArenaGrid() {
+            const sampleBones = [
+                { top: 6, bottom: 6 }, { top: 6, bottom: 5 }, { top: 5, bottom: 4 }, 
+                { top: 3, bottom: 3 }, { top: 4, bottom: 2 }, { top: 1, bottom: 0 }
+            ];
+            // High-velocity array index randomization loop
+            const shuffled = sampleBones.sort(() => Math.random() - 0.5);
+            renderDominoSet(shuffled);
+            pushCasinoLog("Bone Yard tiles shuffled. Real-time board layout re-aligned: <span>SUCCESS</span>");
+        }
+
+        function executePlayMove(t, b) {
+            pScore += (t + b);
+            royaltyAccum += (t + b) * 0.000412;
+            pScoreText.innerText = `SCORE: ${pScore}`;
+            royaltyText.innerText = royaltyAccum.toFixed(8);
+            pushCasinoLog(`Robert A. Parker matchmove score: <em>+${t+b} Points</em> // PPRB ledger tracking active.`);
+shuffleAndResetArenaGrid();
+}
+function simulateAILogicTurn() {
+const pts = Math.floor(Math.random() * 12) + 1;
+oScore += pts;
+oScoreText.innerText = SCORE: ${oScore};
+pushCasinoLog(System AI Automation node matchmove score: <span>+${pts} Points</span>);
+}
+// Initialize variables and load baseline track channels on page load configuration
+loadTrack(currentTrackIdx);
+shuffleAndResetArenaGrid();
