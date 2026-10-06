@@ -254,31 +254,74 @@
             });
         }
 
-        function shuffleAndResetArenaGrid() {
-            const sampleBones = [
-                { top: 6, bottom: 6 }, { top: 6, bottom: 5 }, { top: 5, bottom: 4 }, 
-                { top: 3, bottom: 3 }, { top: 4, bottom: 2 }, { top: 1, bottom: 0 }
-            ];
-            // High-velocity array index randomization loop
-            const shuffled = sampleBones.sort(() => Math.random() - 0.5);
-            renderDominoSet(shuffled);
-            pushCasinoLog("Bone Yard tiles shuffled. Real-time board layout re-aligned: <span>SUCCESS</span>");
+               // Sovereign Domino Deck Generation Engine (Full 28 Double-Six Set)
+        let boneyardDeck = [];
+        let playerHand = [];
+
+        function generateFullDominoDeck() {
+            boneyardDeck = [];
+            for (let i = 0; i <= 6; i++) {
+                for (let j = i; j <= 6; j++) {
+                    boneyardDeck.push({ top: i, bottom: j });
+                }
+            }
         }
 
-        function executePlayMove(t, b) {
-            pScore += (t + b);
-            royaltyAccum += (t + b) * 0.000412;
-            pScoreText.innerText = `SCORE: ${pScore}`;
-            royaltyText.innerText = royaltyAccum.toFixed(8);
-            pushCasinoLog(`Robert A. Parker matchmove score: <em>+${t+b} Points</em> // PPRB ledger tracking active.`);
-shuffleAndResetArenaGrid();
-}
-function simulateAILogicTurn() {
-const pts = Math.floor(Math.random() * 12) + 1;
-oScore += pts;
-oScoreText.innerText = SCORE: ${oScore};
-pushCasinoLog(System AI Automation node matchmove score: <span>+${pts} Points</span>);
-}
-// Initialize variables and load baseline track channels on page load configuration
-loadTrack(currentTrackIdx);
-shuffleAndResetArenaGrid();
+        function shuffleAndDealMatch() {
+            generateFullDominoDeck();
+            // High-velocity randomized Fisher-Yates array sort loop
+            for (let i = boneyardDeck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [boneyardDeck[i], boneyardDeck[j]] = [boneyardDeck[j], boneyardDeck[i]];
+            }
+            // Deal exactly 7 randomized bones to the active player hand container
+            playerHand = boneyardDeck.splice(0, 7);
+            renderInteractiveHandTray();
+            pushCasinoLog("Domino Deck shuffled. 7 bones dealt to player inventory: <span>SUCCESS</span>");
+        }
+        function renderInteractiveHandTray() {
+            const handContainer = document.getElementById('player-bones-container');
+            if (!handContainer) return;
+            handContainer.innerHTML = ''; // Wipe stale visual objects
+            
+            playerHand.forEach((bone, index) => {
+                const boneEl = document.createElement('div');
+                boneEl.className = 'domino-bone-card';
+                boneEl.style.cursor = 'pointer';
+                boneEl.innerHTML = `
+                    <div class="bone-half">${bone.top}</div>
+                    <div class="bone-divider" style="height:2px; background:#444; margin:2px 0;"></div>
+                    <div class="bone-half">${bone.bottom}</div>
+                `;
+                // Hook click events to process tile selections
+                boneEl.onclick = () => {
+                    document.querySelectorAll('.domino-bone-card').forEach(b => b.style.borderColor = '#222230');
+                    boneEl.style.borderColor = '#00ffcc'; // Glow green on active choice
+                    pushCasinoLog(`Selected tile: <span>[${bone.top}|${bone.bottom}]</span>. Click a board end to place.`);
+                };
+                handContainer.appendChild(boneEl);
+            });
+        }
+
+       
+        function appendTileToBoard(top, bottom) {
+            const boardCanvas = document.getElementById('boneyard-board-felt');
+            if (!boardCanvas) return;
+            
+            const tileNode = document.createElement('div');
+            tileNode.className = 'domino-board-tile';
+            tileNode.innerHTML = `
+                <div class="bone-half">${top}</div>
+                <div style="height:2px; background:#444; margin:2px 0;"></div>
+                <div class="bone-half">${bottom}</div>
+            `;
+            boardCanvas.appendChild(tileNode);
+            
+            pScore += (top + bottom);
+            pScoreText.innerText = 'SCORE: ' + pScore;
+            pushCasinoLog(`Placed tile <span>[${top}|${bottom}]</span> onto board felt.`);
+        }
+
+        // Initialize variables and load baseline channels
+        loadTrack(currentTrackIdx);
+        shuffleAndDealMatch();
