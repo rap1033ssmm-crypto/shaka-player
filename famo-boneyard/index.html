@@ -158,10 +158,22 @@
 
     <!-- Complete Client-side Telemetry Streaming & Mechanical Routing Logic Engine Script -->
     <script>
-        const audioVaultList = [
-            { title: "Famo Stream Radio Vol I", url: "https://writerslegacyteampublishing.substack.com/" },
-            { title: "Bone Yard Corporate Track", url: "https://writerslegacyteampublishing.substack.com/" },
-            { title: "Sovereign Ledger Vol IV", url: "https://writerslegacyteampublishing.substack.com/" }
+               const audioVaultList = [
+            { 
+                title: "Chop On It Radio Theme", 
+                artist: "Robert A. Parker",
+                url: "assets/audio/chop_theme.mp3" 
+            },
+            { 
+                title: "Bone Yard Corporate Track", 
+                artist: "Famo Nation Network",
+                url: "assets/audio/boneyard_corporate.mp3" 
+            },
+            { 
+                title: "Sovereign Ledger Vol IV", 
+                artist: "TheMr",
+                url: "assets/audio/sovereign_vol4.mp3" 
+            }
         ];
 
         let currentTrackIdx = 0;
@@ -179,7 +191,7 @@
         function loadTrack(idx) {
             const track = audioVaultList[idx];
             playerAudio.src = track.url;
-            trackTitle.innerText = track.title;
+            track.title + " - " + track.artist;
             pushCasinoLog(`Audio track synchronized: <em>${track.title}</em>`);
         }
 
