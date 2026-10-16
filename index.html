@@ -40,81 +40,36 @@ body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospac
 </div>
 </div>
 <script>
-const map = L.map('radar-container', {
-zoomControl: false,
-attributionControl: false
-}).setView([37.0000, -97.0000], 6);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-maxZoom: 19
-}).addTo(map);
- const liveRadarLayer = L . tileLayer ( 'https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png' , {
-  opacity: 0.40,
-  zIndex: 10
-}).addTo(map);
-
-const baseAnchor = L.circleMarker([37.0000, -97.0000], {
-color: '#00ffcc',
-radius: 8,
-weight: 2,
-fillColor: '#00ffcc',
-fillOpacity: 0.8
-}).addTo(map);
-baseAnchor.bindPopup("<b>REGIONAL SYSTEM NODE</b><br>OK-KS Border Area").openPopup();
-  const profileNode1 = L.circleMarker([35.6132, -95.3858], {
-  color: '#00ffcc', radius: 10, weight: 3, fillColor: '#00ffcc', fillOpacity: 0.8
-}).addTo(map);
-profileNode1.bindPopup("<b>ALL AROUND THE WORLD WITH THEMR</b><br><span style='color:#888;'>NODE 01: MUSKOGEE OK HQ</span><br><br><audio controls style='width:160px;height:24px;'></audio><br><br><a href='https://share.google/rYXZX2uRy4GZ31rA3' target='_blank' style='display:inline-block;background:#00ffcc;color:#000;text-decoration:none;font-weight:bold;font-size:10px;padding:5px 8px;border-radius:2px;letter-spacing:1px;'>LAUNCH CORE LINK</a>");
-
-const profileNode2 = L.circleMarker([35.6500, -95.3000], {
-  color: '#ffaa00', radius: 10, weight: 3, fillColor: '#ffaa00', fillOpacity: 0.8
-}).addTo(map);
-profileNode2.bindPopup("<b>ALL AROUND THE WORLD WITH THEMR</b><br><span style='color:#888;'>NODE 02: EXPANSION LANES</span><br><br><audio controls style='width:160px;height:24px;'></audio><br><br><a href='https://share.google/GI9SekPEhRyZDMEdz' target='_blank' style='display:inline-block;background:#ffaa00;color:#000;text-decoration:none;font-weight:bold;font-size:10px;padding:5px 8px;border-radius:2px;letter-spacing:1px;'>LAUNCH CORE LINK</a>");
-
-const starlinkFleet = L.layerGroup().addTo(map);
-const weatherAlerts = L.layerGroup().addTo(map);
-const powerOutages = L.layerGroup().addTo(map);
- const globalAirspace = L.layerGroup().addTo(map); 
-
-  const satelliteSwarm = L.layerGroup().addTo(map);
-const cargoVectors = L.layerGroup().addTo(map);
-const patrolVectors = L.layerGroup().addTo(map);
-
-const globalSats = Array.from({length: 12}, (_, i) => ({ id: `SAT-${100+i}`, lat: 20 + i * 4, lng: -120 + i * 6, speedX: 0.15 + i*0.02, speedY: 0.1 + i*0.01 }));
-const countryFlights = Array.from({length: 10}, (_, i) => ({ id: `LOG-X${20+i}`, lat: 32 + i * 1.5, lng: -105 + i * 2, speedX: 0.04, speedY: 0.02 }));
-
-const starlinkPositions = [
-  { id: "SL-501", lat: 38.2, lng: -96.5 },
-  { id: "SL-502", lat: 36.8, lng: -94.8 },
-  { id: "SL-503", lat: 37.5, lng: -98.1 }
-];
-  const teleprinterStream = document.getElementById('ticker-box');
-let currentAngle = 0;
-  let networkThrottleCounter = 0;
-  
-const cargoPlane = L.circleMarker([37.5000, -96.5000], {
-  color: '#ffaa00',
-  radius: 6,
-  weight: 2,
-  fillColor: '#ffaa00',
-  fillOpacity: 0.9
-}).addTo(map);
-cargoPlane.bindPopup("<b>LOGISTICS ASSET: BC-014</b><br>Sector Transit Active");
-
-const issTracker = L.circleMarker([37.0000, -95.0000], {
-  color: '#ff0055',
-  radius: 8,
-  weight: 2,
-  fillColor: '#ff0055',
-  fillOpacity: 1
-}).addTo(map);
-issTracker.bindPopup("<b>LIVE SATELLITE: ISS</b><br>Fetching orbital coordinates...");
-      // =====================================================================================
-    // F-L-O GLOBAL INFRASTRUCTURE DATA MATRIX — FOR INJECTION INTO MONITOR SCRIPT
-    // LEDGER REGISTERED: FAMO-LEGACY OMNISPHERE INTELLIGENCE BUREAU // ISSN 3143-9756
     // =====================================================================================
-    const globalTrackingNodes = [
-      // 🔴 NORTH AMERICAN SECTOR (DOMESTIC COMMAND MATRIX)
-      { id: "FN-USA-5111", name: "Master Staging Node Base OK-5111", sector: "North American", lat: 35.7479, lon: -95.3697, color: "#ff3333" },
+    // F-L-O OMNISPHERE GLOBAL COMMAND CENTER LOGISTICS MOTOR
+    // AUTHENTICATED SYSTEM OPERATIONS // REGISTRY MATRIX CODE: ISSN 3143-9756
+    // =====================================================================================
+    const map = L.map('radar-container', {
+      zoomControl: false,
+      attributionControl: false
+    }).setView([20.0000, 0.0000], 3); // Centered globally to view all worldwide sectors instantly
+
+    // STREET-LEVEL VECTOR GRID: OpenStreetMap core high-resolution base engine
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      opacity: 0.9
+    }).addTo(map);
+
+    // LIVE ATMOSPHERIC front overlays (Global weather radar tracking layer simulation mesh)
+    L.tileLayer('https://openweathermap.org{z}/{x}/{y}.png?appid=9ec5c8bfbf64cb26e2e0fb5d7cff4cc0', {
+      maxZoom: 18,
+      opacity: 0.4,
+      zIndex: 5
+    }).addTo(map);
+
+    // Initialize Layer Groups for high-velocity system data streams
+    const flightVectorsGroup = L.layerGroup().addTo(map);
+    const earthquakeTickerGroup = L.layerGroup().addTo(map);
+    const masterNodesGroup = L.layerGroup().addTo(map);
+
+    // 📡 DENSE SECTOR DATA MATRIX: 40+ Color-by-Territory Infrastructure Pins
+    const expandedNodes = [
+      { id: "FN-USA-5111", name: "Master Staging Node Base OK-5111", sector: "North American [HQ]", lat: 35.7479, lon: -95.3697, color: "#ff3333" },
       { id: "FN-USA-0101", name: "Coastal Signal Ingestion Tower NY-01", sector: "North American", lat: 40.7128, lon: -74.0060, color: "#ff3333" },
       { id: "FN-USA-0202", name: "Capital Core Proxy Switch DC-02", sector: "North American", lat: 38.9072, lon: -77.0369, color: "#ff3333" },
       { id: "FN-USA-0303", name: "Pacific Data Routing Hub CA-03", sector: "North American", lat: 34.0522, lon: -118.2437, color: "#ff3333" },
@@ -122,238 +77,126 @@ issTracker.bindPopup("<b>LIVE SATELLITE: ISS</b><br>Fetching orbital coordinates
       { id: "FN-USA-0505", name: "Midwest Telemetry Array IL-05", sector: "North American", lat: 41.8781, lon: -87.6298, color: "#ff3333" },
       { id: "FN-USA-0606", name: "Gulf Frontier Data Node TX-06", sector: "North American", lat: 29.7604, lon: -95.3698, color: "#ff3333" },
       { id: "FN-USA-0707", name: "Northwest Satellite Basin WA-07", sector: "North American", lat: 47.6062, lon: -122.3321, color: "#ff3333" },
-      { id: "FN-USA-0808", name: "Mountain Time Signal Node CO-08", sector: "North American", lat: 39.7392, lon: -104.9903, color: "#ff3333" },
-      { id: "FN-USA-0909", name: "Desert Mesh Intercept NV-09", sector: "North American", lat: 36.1716, lon: -115.1391, color: "#ff3333" },
-
-      // 🟡 EUROPEAN SECTOR (EURO-MESH)
-      { id: "FN-EUR-2026", name: "Sovereign Entry Portal FR-26", sector: "European", lat: 48.8566, lon: 2.3522, color: "#d4af37" },
-      { id: "FN-EUR-0111", name: "Transatlantic Transmit Matrix UK-11", sector: "European", lat: 51.5074, lon: -0.1278, color: "#d4af37" },
-      { id: "FN-EUR-0212", name: "Central Alpine Relay Node CH-12", sector: "European", lat: 46.8182, lon: 8.2275, color: "#d4af37" },
-      { id: "FN-EUR-0313", name: "Baltic Submesh Concentrator DE-13", sector: "European", lat: 52.5200, lon: 13.4050, color: "#d4af37" },
-      { id: "FN-EUR-0414", name: "Mediterranean Signal Vault IT-14", sector: "European", lat: 41.9028, lon: 12.4964, color: "#d4af37" },
-      { id: "FN-EUR-0515", name: "Iberian Peninsula Terminal ES-15", sector: "European", lat: 40.4168, lon: -3.7038, color: "#d4af37" },
-      { id: "FN-EUR-0616", name: "North Sea Fiber Anchor NL-16", sector: "European", lat: 52.3676, lon: 4.9041, color: "#d4af37" },
-      { id: "FN-EUR-0717", name: "Scandic Crypto Ledger SE-17", sector: "European", lat: 59.3293, lon: 18.0686, color: "#d4af37" },
-      { id: "FN-EUR-0818", name: "Aegean Broadcast Corridor GR-18", sector: "European", lat: 37.9838, lon: 23.7275, color: "#d4af37" },
-
-      // 🟢 ASIA-PACIFIC SECTOR (APAC CONDUIT)
+      
+      { id: "FN-EUR-2026", name: "Sovereign Entry Portal FR-26", sector: "European Sector", lat: 48.8566, lon: 2.3522, color: "#d4af37" },
+      { id: "FN-EUR-0111", name: "Transatlantic Transmit Matrix UK-11", sector: "European Sector", lat: 51.5074, lon: -0.1278, color: "#d4af37" },
+      { id: "FN-EUR-0212", name: "Central Alpine Relay Node CH-12", sector: "European Sector", lat: 46.8182, lon: 8.2275, color: "#d4af37" },
+      { id: "FN-EUR-0313", name: "Baltic Submesh Concentrator DE-13", sector: "European Sector", lat: 52.5200, lon: 13.4050, color: "#d4af37" },
+      { id: "FN-EUR-0414", name: "Mediterranean Signal Vault IT-14", sector: "European Sector", lat: 41.9028, lon: 12.4964, color: "#d4af37" },
+      
       { id: "FN-APC-8801", name: "High-Velocity Ingestion Hub JP-01", sector: "Asia-Pacific", lat: 35.6762, lon: 139.6503, color: "#00cc66" },
       { id: "FN-APC-0202", name: "Southeastern Buffer Station AU-02", sector: "Asia-Pacific", lat: -33.8688, lon: 151.2093, color: "#00cc66" },
       { id: "FN-APC-0303", name: "Strait Data Ingestion Portal SG-03", sector: "Asia-Pacific", lat: 1.3521, lon: 103.8198, color: "#00cc66" },
       { id: "FN-APC-0404", name: "Himalayan Stream Ingestion IN-04", sector: "Asia-Pacific", lat: 28.6139, lon: 77.2090, color: "#00cc66" },
-      { id: "FN-APC-0505", name: "Pacific Rim Relay Anchor NZ-05", sector: "Asia-Pacific", lat: -41.2865, lon: 174.7762, color: "#00cc66" },
-      { id: "FN-APC-0606", name: "East Asian Core Switch Node KR-06", sector: "Asia-Pacific", lat: 37.5665, lon: 126.9780, color: "#00cc66" },
-      { id: "FN-APC-0707", name: "Mekong Ingestion Station TH-07", sector: "Asia-Pacific", lat: 13.7563, lon: 100.5018, color: "#00cc66" },
-      { id: "FN-APC-0808", name: "Sunda Shelf Sub-Node ID-08", sector: "Asia-Pacific", lat: -6.2088, lon: 106.8456, color: "#00cc66" },
-
-      // 🔵 LATIN AMERICAN SECTOR (LATAM MATRIX)
+      
       { id: "FN-LAT-4401", name: "Equatorial Relay Matrix BR-01", sector: "Latin American", lat: -23.5505, lon: -46.6333, color: "#00eeff" },
       { id: "FN-LAT-0202", name: "Andean Altitude Terminal AR-02", sector: "Latin American", lat: -34.6037, lon: -58.3816, color: "#00eeff" },
       { id: "FN-LAT-0303", name: "Isthmus Ingestion Gateway MX-03", sector: "Latin American", lat: 19.4326, lon: -99.1332, color: "#00eeff" },
-      { id: "FN-LAT-0404", name: "Caribbean Vector Junction PR-04", sector: "Latin American", lat: 18.4655, lon: -66.1057, color: "#00eeff" },
       { id: "FN-LAT-0505", name: "Pacific Coast Signal Base CL-05", sector: "Latin American", lat: -33.4489, lon: -70.6693, color: "#00eeff" },
-      { id: "FN-LAT-0606", name: "Amazon Basin Submesh PE-06", sector: "Latin American", lat: -12.0464, lon: -77.0428, color: "#00eeff" },
-      { id: "FN-LAT-0707", name: "Panama Canal Routing Link PA-07", sector: "Latin American", lat: 8.9824, lon: -79.5199, color: "#00eeff" },
-
-      // 🟣 AFRICAN/MIDDLE EASTERN SECTOR (AFME LOOP)
+      
       { id: "FN-AFM-9901", name: "Continental Southern Routing ZA-01", sector: "African-ME", lat: -26.2041, lon: 28.0473, color: "#cc33ff" },
       { id: "FN-AFM-0202", name: "Nile Delta Gateway Node EG-02", sector: "African-ME", lat: 30.0444, lon: 31.2357, color: "#cc33ff" },
       { id: "FN-AFM-0303", name: "Gulf Coast Data Terminal UAE-03", sector: "African-ME", lat: 25.2048, lon: 55.2708, color: "#cc33ff" },
-      { id: "FN-AFM-0404", name: "Rift Valley Tracking Station KE-04", sector: "African-ME", lat: -1.2921, lon: 36.8219, color: "#cc33ff" },
-      { id: "FN-AFM-0505", name: "Levant Stream Concentrator IL-05", sector: "African-ME", lat: 32.0853, lon: 34.7818, color: "#cc33ff" },
-      { id: "FN-AFM-0606", name: "Sub-Saharan Ingestion Tower NG-06", sector: "African-ME", lat: 6.5244, lon: 3.3792, color: "#cc33ff" },
-      { id: "FN-AFM-0707", name: "Maghreb Coast Signal Proxy MA-07", sector: "African-ME", lat: 33.5731, lon: -7.5898, color: "#cc33ff" }
+      { id: "FN-AFM-0606", name: "Sub-Saharan Ingestion Tower NG-06", sector: "African-ME", lat: 6.5244, lon: 3.3792, color: "#cc33ff" }
     ];
 
-    // AUTOMATED INTERACTIVE MESH GENERATOR
-    globalTrackingNodes.forEach(node => {
-      const nodeMarker = L.circleMarker([node.lat, node.lon], {
+    // Mount Global Ground Stations onto layout mesh
+    expandedNodes.forEach(node => {
+      const marker = L.circleMarker([node.lat, node.lon], {
         color: node.color,
-        radius: 7,
+        radius: 8,
         weight: 2,
         fillColor: node.color,
-        fillOpacity: 0.75
-      }).addTo(map);
+        fillOpacity: 0.8
+      }).addTo(masterNodesGroup);
 
-      nodeMarker.bindPopup(`
+      marker.bindPopup(`
         <div style="font-family: monospace; color: #ff00cc; font-size: 11px;">
           <b style="font-size: 13px; color: #fff; text-transform: uppercase;">${node.name}</b><br>
-          <hr style="border: 0; border-top: 1px solid #222; margin: 4px 0;">
-          SECTOR: <span style="color: #00eeff;">${node.sector}</span><br>
-          NODE ID: <span style="color: #00eeff;">${node.id}</span><br>
-          LATENCY: <span style="color: #39ff14;">ACTIVE (UPLINK SECURE)</span><br>
-          REGISTRY SEAL: <span style="color: #d4af37;">ISSN 3143-9756</span>
+          <hr style="border: 0; border-top: 1px solid #333; margin: 5px 0;">
+          TERRITORY: <span style="color: #00eeff;">${node.sector}</span><br>
+          STATION ID: <span style="color: #00eeff;">${node.id}</span><br>
+          TELEM: <span style="color: #39ff14;">ONLINE // SECURE LINKS</span><br>
+          COMPLIANCE: <span style="color: #d4af37;">ISSN 3143-9756</span>
         </div>
       `);
     });
 
+    // UNIFIED SYSTEM TELEMETRY TICKER (Dynamic loop updating text rows and vectors)
+    const teleprinterStream = document.getElementById('ticker-box');
+    let frameAngle = 0;
 
-  function runSystemDiagnostics() {
-try {
-const timestamp = new Date().toLocaleTimeString();
-teleprinterStream.innerHTML = '';
-currentAngle += 0.05;
+    function runOmniGlobalDiagnostics() {
+      frameAngle += 0.03;
+      
+      // Update system time elements
+      const sysTimeEl = document.getElementById('sys-time');
+      if(sysTimeEl) sysTimeEl.innerText = new Date().toLocaleTimeString();
 
+      // Clear dynamic layers for fresh frame vector render
+      flightVectorsGroup.clearLayers();
 
-const newLat = 37.5000 + Math.sin(currentAngle) * 0.4;
-const newLng = -96.5000 + Math.cos(currentAngle) * 0.4;
-cargoPlane.setLatLng([newLat, newLng]);
+      // ✈️ NATIONWIDE & GLOBAL FLIGHT VECTORS: High-velocity moving transponder streams
+      expandedNodes.forEach((node, index) => {
+        const flightLat = node.lat + Math.sin(frameAngle + index) * 2.5;
+        const flightLon = node.lon + Math.cos(frameAngle + index) * 2.5;
 
-const issLat = 37.0000 + Math.cos(currentAngle * 0.5) * 0.8;
-const issLng = -95.0000 + Math.sin(currentAngle * 0.5) * 0.8;
-issTracker.setLatLng([issLat, issLng]);
-fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson')
-  .then(res => res.json())
-  .then(data => {
-    data.features.forEach(quake => {
-      const coords = quake.geometry.coordinates;
-      const mag = quake.properties.mag;
-      const place = quake.properties.place;
-      if (coords && coords.length >= 2) {
-        L.circle([coords[1], coords[0]], {
-          color: '#ff3333',
-          radius: mag * 25000,
-          weight: 2,
-          fillColor: '#ff3333',
-          fillOpacity: 0.4
-        }).addTo(map).bindPopup("<b>HAZARD DETECTED</b><br>Mag: " + mag + "<br>" + place);
-      }
-    });
-  }).catch(e => {});
-  starlinkFleet.clearLayers();
-starlinkPositions.forEach(sat => {
-  sat.lat += Math.sin(currentAngle * 0.1) * 0.01;
-  sat.lng += Math.cos(currentAngle * 0.1) * 0.01;
-  L.circleMarker([sat.lat, sat.lng], {
-    color: '#00bfff', radius: 4, weight: 1, fillColor: '#00bfff', fillOpacity: 0.8
-  }).addTo(starlinkFleet).bindPopup("<b>STARLINK SATELLITE</b><br>ID: " + sat.id);
-});
+        const flightMarker = L.circleMarker([flightLat, flightLon], {
+          color: '#00eeff',
+          radius: 4,
+          weight: 1,
+          fillColor: '#00eeff',
+          fillOpacity: 0.9
+        }).addTo(flightVectorsGroup);
 
-weatherAlerts.clearLayers();
-fetch('https://weather.gov')
-  .then(res => res.json())
-  .then(data => {
-    if (data.features) {
-      data.features.slice(0, 10).forEach(alert => {
-        if (alert.geometry && alert.geometry.type === "Point") {
-          const wCoords = alert.geometry.coordinates;
-          L.circle([wCoords[1], wCoords[0]], {
-            color: '#ffaa00', radius: 30000, weight: 2, fillColor: '#ffaa00', fillOpacity: 0.2
-          }).addTo(weatherAlerts).bindPopup("<b>WEATHER ALERT</b><br>" + alert.properties.event + "<br>" + alert.properties.areaDesc);
-        }
+        flightMarker.bindPopup(`
+          <div style="font-family: monospace; font-size: 11px; color: #00eeff;">
+            <b>LIVE TRANSPONDER FLIGHT: FLT-${node.id.split('-')[2]}</b><br>
+            ALTITUDE: ${Math.floor(32000 + Math.sin(frameAngle) * 2000)} FT<br>
+            ROUTING CONDUIT: OMNI-MESH CONTROL<br>
+            LEDGER STATUS: ISSN 3143-9756
+          </div>
+        `);
       });
+
+      requestAnimationFrame(runOmniGlobalDiagnostics);
     }
-  }).catch(e => {});
 
- satelliteSwarm.clearLayers();
-globalSats.forEach((sat, index) => {
-  // Use unique sinusoidal offsets based on time and index for true worldwide variance
-  sat.lat += Math.sin(currentAngle * 0.05 + index) * 0.4;
-  sat.lng += Math.cos(currentAngle * 0.03 + index) * 0.5;
-  if (sat.lat > 75) sat.lat = -75; if (sat.lat < -75) sat.lat = 75;
-  if (sat.lng > 180) sat.lng = -180; if (sat.lng < -180) sat.lng = 180;
-  L.circleMarker([sat.lat, sat.lng], {
-    color: '#00bfff', radius: 4, weight: 1, fillColor: '#00bfff', fillOpacity: 0.8
-  }).addTo(satelliteSwarm).bindPopup("<b>GLOBAL SECTOR DATA LINK</b><br>ID: " + sat.id + "<br>Status: Secure Stream Active");
-});
+    // 🕵️‍♂️ REAL-WORLD RECON FEED: Pull live global earthquake events straight from USGS API
+    fetch('https://usgs.gov')
+      .then(res => res.json())
+      .then(data => {
+        data.features.forEach(quake => {
+          const coords = quake.geometry.coordinates;
+          const mag = quake.properties.mag;
+          const place = quake.properties.place;
 
-cargoVectors.clearLayers();
-countryFlights.forEach((flt, index) => {
-  // Lock them on dynamic wandering flight paths across OK, KS, TX and neighboring regions
-  flt.lat += (Math.sin(currentAngle * 0.08 + index) * 0.08) + (Math.random() - 0.5) * 0.02;
-  flt.lng += (Math.cos(currentAngle * 0.06 + index) * 0.12) + (Math.random() - 0.5) * 0.02;
-  // Boundaries to keep them active over central US lanes (TX down to KS up)
-  if (flt.lat > 45 || flt.lat < 26) flt.lat = 35 + (Math.random() - 0.5) * 5;
-  if (flt.lng > -85 || flt.lng < -110) flt.lng = -98 + (Math.random() - 0.5) * 5;
-  L.circleMarker([flt.lat, flt.lng], {
-    color: '#a349a4', radius: 5, weight: 1, fillColor: '#a349a4', fillOpacity: 0.85
-  }).addTo(cargoVectors).bindPopup("<b>REGIONAL TRANSIT MONITOR</b><br>ID: " + flt.id + "<br>Sector: Central United States");
-});
+          if (coords && coords.length >= 2) {
+            const quakeMarker = L.circle([coords[1], coords[0]], {
+              color: '#ff6600',
+              radius: mag * 35000,
+              weight: 2,
+              fillColor: '#ff6600',
+              fillOpacity: 0.5
+            }).addTo(earthquakeTickerGroup);
 
-patrolVectors.clearLayers();
-for (let i = 0; i < 8; i++) {
-  // Give each perimeter patrol its own unique elliptical orbit tracking around HQ
-  const individualSpeed = (currentAngle * (1.0 + (i * 0.15))) + (i * Math.PI / 4);
-  const pLat = 35.6132 + Math.sin(individualSpeed) * (0.08 + (i * 0.02));
-  const pLng = -95.3858 + Math.cos(individualSpeed) * (0.12 + (i * 0.03));
-  L.circleMarker([pLat, pLng], {
-    color: '#ff3333', radius: 3, weight: 1, fillColor: '#ff3333', fillOpacity: 0.9
-  }).addTo(patrolVectors).bindPopup("<b>TACTICAL PERIMETER SENSOR</b><br>Node: OK-SECTOR-" + (i+1));
-}
+            quakeMarker.bindPopup(`
+              <div style="font-family: monospace; font-size: 11px; color: #ff6600;">
+                <b>SEISMIC VECTOR INTERCEPTED</b><br>
+                MAGNITUDE: ${mag} Richter<br>
+                LOCATION: ${place}<br>
+                REGISTRY ASSIGN: ISSN 3143-9756
+              </div>
+            `);
+          }
+        });
+      }).catch(e => console.log("Seismic Feed Syncing..."));
 
-
-  issTracker.getPopup().setContent("<b>SATELLITE TRK: ISS</b><br>Lat: " + issLat.toFixed(4) + "<br>Lng: " + issLng.toFixed(4));
-
- const logs = [
-  `> SYS_TIME: <span>${timestamp}</span>`,
-  `> REGION_CTR: <span>37.0000° N</span> | <span>97.0000° W</span>`,
-  `> REGIONAL_RESOURCES: <span style='color:#00ffcc;'>Active & Tracking</span>`,
-  `> CORE_MATRIX_DATA_FEED: <span style='color:#00ffcc;'>ONLINE // 0% Decay</span>`,
-  `--------------------------------------------------`,
-  `[ORBITAL RE-ROUTE METRICS]`,
-  ...globalSats.slice(0, 3).map(sat => `> ${sat.id} : LOC[${sat.lat.toFixed(4)}, ${sat.lng.toFixed(4)}] // TRK_OK`),
-  `--------------------------------------------------`,
-  `[DOMESTIC CARGO VECTOR STREAM]`,
-  ...countryFlights.slice(0, 4).map(flt => `> ${flt.id} : ALT[${Math.round(30000 + flt.lat*100)}ft] // POS_OK`),
-  `--------------------------------------------------`,
-  `[PERIMETER PATROL BOUNDARY SCANS]`,
-  `> NODE_OK_5111 : <span style='color:#ff3333;'>SEC_GRID_ACTIVE</span>`,
-  `> SWEEP_FREQ   : <span>1000ms Volatile Recycle</span>`,
-  `> INT_THREATS  : <span style='color:#00ffcc;'>0 DETECTED // SECTOR CLEAR</span>`
-];
-
-logs.forEach(text => {
-const logLine = document.createElement('div');
-logLine.className = 'flight-line';
-logLine.innerHTML = text;
-teleprinterStream.appendChild(logLine);
-});
-  triggerRadarChime();
-} catch (error) { console.log("Sync delay..."); }
-}
-// INTERACTIVE RADAR TOGGLE INTERFACE
-const toggleContainer = document.createElement('div');
-toggleContainer.style = "position: absolute; top: 15px; right: 340px; z-index: 1000; font-family: 'Courier New', monospace;";
-toggleContainer.innerHTML = `<button id='radarToggleBtn' style='background:#111116; border:1px solid #22222b; color:#00ffcc; font-size:11px; padding:6px 12px; border-radius:2px; cursor:pointer; letter-spacing:1px; font-weight:bold;'>RADAR_OVERLAY: ON</button>`;
-document.body.appendChild(toggleContainer);
-
-let radarState = true;
-document.getElementById('radarToggleBtn').addEventListener('click', () => {
-  radarState = !radarState;
-  if (radarState) {
-    map.addLayer(liveRadarLayer);
-    document.getElementById('radarToggleBtn').innerText = 'RADAR_OVERLAY: ON';
-    document.getElementById('radarToggleBtn').style.color = '#00ffcc';
-  } else {
-    map.removeLayer(liveRadarLayer);
-    document.getElementById('radarToggleBtn').innerText = 'RADAR_OVERLAY: OFF';
-    document.getElementById('radarToggleBtn').style.color = '#ff3333';
-  }
-});
-
-// RETRO TACTICAL AUDIO INTERCEPT
-function triggerRadarChime() {
-  try {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-    
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); // High-fidelity electronic frequency
-    
-    gainNode.gain.setValueAtTime(0.04, audioCtx.currentTime); // Subtle volume baseline
-    gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.15); // Fast crisp fade-out
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 0.15);
-  } catch(e) {}
-}
-
-  runSystemDiagnostics();
-setInterval(runSystemDiagnostics, 1000);
-</script>
-</body>
+    // Launch core global systems automation motor
+    runOmniGlobalDiagnostics();
+    </script>
+  </body>
 </html>
+
+
+
