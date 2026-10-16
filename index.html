@@ -275,6 +275,160 @@ function triggerRadarChime() {
 
   runSystemDiagnostics();
 setInterval(runSystemDiagnostics, 1000);
+    // =====================================================================================
+    // OMNISPHERE OVERLAY GRID — AUTOMATED INDEPENDENT EXPANSION PACK
+    // AUTHENTICATED LEDGER REGISTER: ISSN 3143-9756 // SYSTEM STATUS: ACTIVE
+    // =====================================================================================
+    (function() {
+      // 1. Initialize Completely Independent Layer Groups to prevent script overlap
+      const usStateGridGroup = L.layerGroup().addTo(map);
+      const internationalGridGroup = L.layerGroup().addTo(map);
+      const oceanSwarmGroup = L.layerGroup().addTo(map);
+
+      // 2. High-Density National Network Map Array (Every single US State populated)
+      const usStateNodes = [
+        { state: "AL", name: "Dixie Signal Relay AL-01", lat: 32.3182, lon: -86.9023 },
+        { state: "AK", name: "Arctic Telemetry Base AK-02", lat: 61.3707, lon: -152.4044 },
+        { state: "AZ", name: "Sonoran Desert Hub AZ-03", lat: 33.7298, lon: -111.4312 },
+        { state: "AR", name: "Ozark Ingestion Node AR-04", lat: 34.9697, lon: -92.3731 },
+        { state: "CA", name: "Pacific Rim Main Switch CA-05", lat: 36.1162, lon: -119.6816 },
+        { state: "CO", name: "Rockies Telemetry Grid CO-06", lat: 39.0598, lon: -105.3111 },
+        { state: "CT", name: "Long Island Sound Relay CT-07", lat: 41.5978, lon: -72.7554 },
+        { state: "DE", name: "Delaware Bay Buffer DE-08", lat: 38.9108, lon: -75.5277 },
+        { state: "FL", name: "Southeastern Uplink Center FL-09", lat: 27.7663, lon: -81.6868 },
+        { state: "GA", name: "Peach State Fiber Node GA-10", lat: 33.0406, lon: -83.6431 },
+        { state: "HI", name: "Mid-Pacific Intercept HI-11", lat: 21.0943, lon: -157.4983 },
+        { state: "ID", name: "Snake River Vector ID-12", lat: 44.2405, lon: -114.4788 },
+        { state: "IL", name: "Midwest Conflux Terminal IL-13", lat: 40.3495, lon: -88.9861 },
+        { state: "IN", name: "Hoosier Grid Node IN-14", lat: 39.8494, lon: -86.2583 },
+        { state: "IA", name: "Hawkeye Data Matrix IA-15", lat: 42.0115, lon: -93.2105 },
+        { state: "KS", name: "Central Plains Array KS-16", lat: 38.5266, lon: -96.7265 },
+        { state: "KY", name: "Bluegrass Signal Tower KY-17", lat: 37.6681, lon: -84.6701 },
+        { state: "LA", name: "Delta Basin Intercept LA-18", lat: 31.1695, lon: -91.8678 },
+        { state: "ME", name: "North Atlantic Gateway ME-19", lat: 44.6939, lon: -69.3819 },
+        { state: "MD", name: "Chesapeake Matrix Base MD-20", lat: 39.0639, lon: -76.8021 },
+        { state: "MA", name: "Bay State Uplink Array MA-21", lat: 42.2302, lon: -71.5301 },
+        { state: "MI", name: "Great Lakes Router Matrix MI-22", lat: 43.3266, lon: -84.5361 },
+        { state: "MN", name: "North Woods Proxy Switch MN-23", lat: 45.6945, lon: -93.9001 },
+        { state: "MS", name: "Magnolia Stream Node MS-24", lat: 32.7416, lon: -89.6787 },
+        { state: "MO", name: "Missouri River Basin Anchor MO-25", lat: 38.4561, lon: -92.2884 },
+        { state: "MT", name: "Big Sky Uplink Terminal MT-26", lat: 46.9219, lon: -110.4544 },
+        { state: "NE", name: "Platte Valley Data Loop NE-27", lat: 41.1254, lon: -98.2681 },
+        { state: "NV", name: "Sagebrush Signal Intercept NV-28", lat: 38.3135, lon: -117.0554 },
+        { state: "NH", name: "Granite State Buffer NH-29", lat: 43.4525, lon: -71.5639 },
+        { state: "NJ", name: "Coastal Edge Node NJ-30", lat: 40.2989, lon: -74.5210 },
+        { state: "NM", name: "High-Altitude Vector Base NM-31", lat: 34.8405, lon: -106.2485 },
+        { state: "NY", name: "Empire Signal Ingestion NY-32", lat: 42.1657, lon: -74.9481 },
+        { state: "NC", name: "Carolina Buffer Tower NC-33", lat: 35.6301, lon: -79.8064 },
+        { state: "ND", name: "Northern Frontier Station ND-34", lat: 47.5289, lon: -99.7840 },
+        { state: "OH", name: "Ohio River Basin Relay OH-35", lat: 40.3888, lon: -82.7649 },
+        { state: "OR", name: "Cascade Telemetry Anchor OR-36", lat: 44.5720, lon: -122.0709 },
+        { state: "PA", name: "Keystone Routing Station PA-37", lat: 40.5908, lon: -77.2098 },
+        { state: "RI", name: "Ocean State Terminal RI-38", lat: 41.6809, lon: -71.5118 },
+        { state: "SC", name: "Palmetto Core Ingestion SC-39", lat: 33.8569, lon: -80.9450 },
+        { state: "SD", name: "Badlands Signal Terminal SD-40", lat: 44.2998, lon: -99.4388 },
+        { state: "TN", name: "Cumberland Valley Router TN-41", lat: 35.7478, lon: -86.6923 },
+        { state: "TX", name: "Lone Star Command Grid TX-42", lat: 31.0545, lon: -97.5635 },
+        { state: "UT", name: "Wasatch Vector Anchor UT-43", lat: 40.1500, lon: -111.8624 },
+        { state: "VT", name: "Green Mountain Buffer VT-44", lat: 44.0459, lon: -72.7107 },
+        { state: "VA", name: "Chesapeake Conflux Base VA-45", lat: 37.7693, lon: -78.1700 },
+        { state: "WA", name: "Puget Sound Basin Node WA-46", lat: 47.4009, lon: -121.4905 },
+        { state: "WV", name: "Appalachian Signal Switch WV-47", lat: 38.4912, lon: -80.9545 },
+        { state: "WI", name: "Badger State Routing Hub WI-48", lat: 44.2685, lon: -89.6165 },
+        { state: "WY", name: "Yellowstone Telemetry Station WY-49", lat: 42.7560, lon: -107.3025 }
+      ];
+
+      // 3. Dense Planetary Data Matrix (Every continent & key global capitals populated)
+      const globalCountryNodes = [
+        { country: "Canada", name: "Ottawan Proxy Array", lat: 45.4215, lon: -75.6972, sector: "North American", color: "#ff3333" },
+        { country: "Mexico", name: "Sovereign Ingestion MX-01", lat: 19.4326, lon: -99.1332, sector: "Latin American", color: "#00eeff" },
+        { country: "Germany", name: "Berlin Concentrator DE-01", lat: 52.5200, lon: 13.4050, sector: "European Sector", color: "#d4af37" },
+        { country: "China", name: "Beijing Core Switch CN-01", lat: 39.9042, lon: 116.4074, sector: "Asia-Pacific", color: "#00cc66" },
+        { country: "India", name: "New Delhi Routing Matrix", lat: 28.6139, lon: 77.2090, sector: "Asia-Pacific", color: "#00cc66" },
+        { country: "Russia", name: "Moscow Telemetry Basin", lat: 55.7558, lon: 37.6173, sector: "European Sector", color: "#d4af37" },
+        { country: "Brazil", name: "Amazon Basin Conduit BR-02", lat: -15.7938, lon: -47.8828, sector: "Latin American", color: "#00eeff" },
+        { country: "Australia", name: "Canberra Station AU-01", lat: -35.2809, lon: 149.1300, sector: "Asia-Pacific", color: "#00cc66" },
+        { country: "Egypt", name: "Cairo Gateway EG-01", lat: 30.0444, lon: 31.2357, sector: "African-ME", color: "#cc33ff" },
+        { country: "South Africa", name: "Pretoria Hub ZA-02", lat: -25.7479, lon: 28.2292, sector: "African-ME", color: "#cc33ff" },
+        { country: "Argentina", name: "Buenos Aires Edge Node", lat: -34.6037, lon: -58.3816, sector: "Latin American", color: "#00eeff" },
+        { country: "Japan", name: "Tokyo Terminal JP-02", lat: 35.6762, lon: 139.6503, sector: "Asia-Pacific", color: "#00cc66" }
+      ];
+
+      // 4. Render Nationwide United States Sector Pins Automatically
+      usStateNodes.forEach(node => {
+        L.circleMarker([node.lat, node.lon], {
+          color: "#ff3333", // Solid domestic red matrix tracking parameter
+          radius: 5.5,
+          weight: 1.5,
+          fillColor: "#ff3333",
+          fillOpacity: 0.8
+        }).addTo(usStateGridGroup).bindPopup(`
+          <div style="font-family: monospace; color: #ff3333; font-size: 11px;">
+            <b style="font-size: 12px; color: #fff;">${node.name}</b><br>
+            <hr style="border: 0; border-top: 1px solid #333; margin: 4px 0;">
+            SECTOR: North American STATE: ${node.state}<br>
+            TELEM: STABLE BROADCAST CHANNEL<br>
+            REGISTRY DATA RECORD: ISSN 3143-9756
+          </div>
+        `);
+      });
+
+      // 5. Render Global International Sector Pins Automatically
+      globalCountryNodes.forEach(node => {
+        L.circleMarker([node.lat, node.lon], {
+          color: node.color, // Color-by-territory automated palette configuration
+          radius: 6.5,
+          weight: 2,
+          fillColor: node.color,
+          fillOpacity: 0.8
+        }).addTo(internationalGridGroup).bindPopup(`
+          <div style="font-family: monospace; color: ${node.color}; font-size: 11px;">
+            <b style="font-size: 12px; color: #fff;">${node.name}</b><br>
+            <hr style="border: 0; border-top: 1px solid #333; margin: 4px 0;">
+            TERRITORY: ${node.sector} [${node.country}]<br>
+            STATUS: ACTIVE INTERNATIONAL CONDUIT<br>
+            REGISTRY SEAL: ISSN 3143-9756
+          </div>
+        `);
+      });
+
+      // 6. Dynamic Trans-Oceanic Moving Vector Swarms (Never stops moving over the open seas)
+      let oceanTheta = 0;
+      function runOceanSwarmLogistics() {
+        oceanTheta += 0.015;
+        oceanSwarmGroup.clearLayers();
+
+        // Coordinates across empty Pacific, Atlantic, and Indian Oceans tracking vectors
+        const seaLanes = [
+          { name: "PACIFIC-SWARM-DELTA", baseLat: 0.0, baseLon: -140.0 },
+          { name: "ATLANTIC-SWARM-SIGMA", baseLat: 25.0, baseLon: -40.0 },
+          { name: "INDIAN-SWARM-OMEGA", baseLat: -20.0, baseLon: 80.0 }
+        ];
+
+        seaLanes.forEach((lane, index) => {
+          // Broad circular orbits that stretch completely across the water matrices
+          const swmLat = lane.baseLat + Math.sin(oceanTheta + index) * 12.0;
+          const swmLon = lane.baseLon + Math.cos(oceanTheta + index) * 18.0;
+
+          L.circleMarker([swmLat, swmLon], {
+            color: '#39ff14', // High-visibility cyber-green moving trackers
+            radius: 4,
+            weight: 1,
+            fillColor: '#39ff14',
+            fillOpacity: 0.85
+          }).addTo(oceanSwarmGroup).bindPopup(`
+            <div style="font-family: monospace; font-size: 11px; color: #39ff14;">
+              <b>TRANS-OCEANIC VECTOR: ${lane.name}</b><br>
+UPLINK BEACON: INTER-CONDUIT SATELLITE SWARM
+
+COMPLIANCE CLASSIFICATION: ISSN 3143-9756
+
+`);
+});
+requestAnimationFrame(runOceanSwarmLogistics);
+}
+runOceanSwarmLogistics();
+})();
 </script>
 </body>
 </html>
