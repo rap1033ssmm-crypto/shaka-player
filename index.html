@@ -40,7 +40,7 @@ body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospac
 </div>
 </div>
 <script>
-    // =====================================================================================
+       // =====================================================================================
     // F-L-O OMNISPHERE GLOBAL COMMAND CENTER LOGISTICS MOTOR
     // AUTHENTICATED SYSTEM OPERATIONS // REGISTRY MATRIX CODE: ISSN 3143-9756
     // =====================================================================================
@@ -53,13 +53,6 @@ body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospac
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       opacity: 0.9
-    }).addTo(map);
-
-    // LIVE ATMOSPHERIC front overlays (Global weather radar tracking layer simulation mesh)
-    L.tileLayer('https://openweathermap.org{z}/{x}/{y}.png?appid=9ec5c8bfbf64cb26e2e0fb5d7cff4cc0', {
-      maxZoom: 18,
-      opacity: 0.4,
-      zIndex: 5
     }).addTo(map);
 
     // Initialize Layer Groups for high-velocity system data streams
@@ -123,15 +116,16 @@ body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospac
     });
 
     // UNIFIED SYSTEM TELEMETRY TICKER (Dynamic loop updating text rows and vectors)
-    const teleprinterStream = document.getElementById('ticker-box');
+    const teleprinterStream = document.querySelector('.flight-line');
     let frameAngle = 0;
 
     function runOmniGlobalDiagnostics() {
       frameAngle += 0.03;
       
-      // Update system time elements
-      const sysTimeEl = document.getElementById('sys-time');
-      if(sysTimeEl) sysTimeEl.innerText = new Date().toLocaleTimeString();
+      // Update the active ticker panel safely using the existing class target
+      if(teleprinterStream) {
+        teleprinterStream.innerText = `SYS-GRID LATENCY METRIC: ${(12 + Math.sin(frameAngle) * 2).toFixed(1)}ms // REGISTRY MATRIX: ISSN 3143-9756 // UPLINK CHANNELS PASSING OPENSTREETMAP VECTOR BLOCKS...`;
+      }
 
       // Clear dynamic layers for fresh frame vector render
       flightVectorsGroup.clearLayers();
@@ -151,8 +145,7 @@ body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospac
 
         flightMarker.bindPopup(`
           <div style="font-family: monospace; font-size: 11px; color: #00eeff;">
-            <b>LIVE TRANSPONDER FLIGHT: FLT-${node.id.split('-')[2]}</b><br>
-            ALTITUDE: ${Math.floor(32000 + Math.sin(frameAngle) * 2000)} FT<br>
+            <b>LIVE TRANSPONDER FLIGHT: FLT-${node.id}</b><br>
             ROUTING CONDUIT: OMNI-MESH CONTROL<br>
             LEDGER STATUS: ISSN 3143-9756
           </div>
@@ -162,38 +155,8 @@ body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospac
       requestAnimationFrame(runOmniGlobalDiagnostics);
     }
 
-    // 🕵️‍♂️ REAL-WORLD RECON FEED: Pull live global earthquake events straight from USGS API
-    fetch('https://usgs.gov')
-      .then(res => res.json())
-      .then(data => {
-        data.features.forEach(quake => {
-          const coords = quake.geometry.coordinates;
-          const mag = quake.properties.mag;
-          const place = quake.properties.place;
-
-          if (coords && coords.length >= 2) {
-            const quakeMarker = L.circle([coords[1], coords[0]], {
-              color: '#ff6600',
-              radius: mag * 35000,
-              weight: 2,
-              fillColor: '#ff6600',
-              fillOpacity: 0.5
-            }).addTo(earthquakeTickerGroup);
-
-            quakeMarker.bindPopup(`
-              <div style="font-family: monospace; font-size: 11px; color: #ff6600;">
-                <b>SEISMIC VECTOR INTERCEPTED</b><br>
-                MAGNITUDE: ${mag} Richter<br>
-                LOCATION: ${place}<br>
-                REGISTRY ASSIGN: ISSN 3143-9756
-              </div>
-            `);
-          }
-        });
-      }).catch(e => console.log("Seismic Feed Syncing..."));
-
     // Launch core global systems automation motor
-    runOmniGlobalDiagnostics();
+   runOmniGlobalDiagnostics();
     </script>
   </body>
 </html>
