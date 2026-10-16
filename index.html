@@ -1,51 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KMKO TELEMETRY COCKPIT // MUSKOGEE COUNTY TERMINAL</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospace; height: 100vh; overflow: hidden; display: flex; }
-#radar-container {
-  flex: 1;
-  height: 100vh;
-  width: 100%;
-  position: relative;
-    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
-  z-index: 1;
-}
-
-#teleprinter-panel { width: 380px; height: 100%; background: #111115; border-left: 2px solid #22222b; display: flex; flex-direction: column; }
-#header { padding: 15px; border-bottom: 2px solid #22222b; background: #0e0e12; }
-#header h1 { font-size: 16px; letter-spacing: 1px; color: #fff; text-transform: uppercase; }
-#header p { font-size: 11px; color: #888; margin-top: 4px; }
-#ticker-box { flex: 1; overflow-y: auto; padding: 15px; font-size: 12px; line-height: 1.6; }
-.flight-line { border-bottom: 1px solid #1c1c24; padding: 6px 0; display: flex; flex-direction: column; }
-.flight-line span { color: #ffaa00; }
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KMKO TELEMETRY COCKPIT // MUSKOGEE COUNTY TERMINAL</title>
+    <link rel="stylesheet" href="https://unpkg.com" />
+    <script src="https://unpkg.com"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospace; height: 100vh; overflow: hidden; display: flex; }
+        #radar-container {
+            flex: 1;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+            z-index: 1;
+        }
+        #teleprinter-panel { width: 380px; height: 100%; background: #111115; border-left: 2px solid #22222b; display: flex; flex-direction: column; z-index: 10; }
+        .ticker-bar { background: #0e0e12; border-bottom: 2px solid #22222b; padding: 12px; overflow: hidden; white-space: nowrap; width: 100%; }
+        .flight-line { display: inline-block; font-size: 12px; font-weight: bold; color: #39ff14; animation: marquee 25s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+    </style>
 </head>
 <body>
-<div id="radar-container"></div>
-<div id="teleprinter-panel">
-<div id="header">
-<h1>KMKO Systems Monitor</h1>
-<p>Node WLT-LAND-OK-5111 // Muskogee County</p>
-</div>
-<div id="ticker-box">
-<div class="flight-line">> System Initialized... Establishing Telemetry Streams...</div>
-</div>
-</div>
-<script>
-       // =====================================================================================
-    // F-L-O OMNISPHERE GLOBAL COMMAND CENTER LOGISTICS MOTOR
-    // AUTHENTICATED SYSTEM OPERATIONS // REGISTRY MATRIX CODE: ISSN 3143-9756
+
+    <!-- Main World Viewport Map Grid -->
+    <div id="radar-container"></div>
+
+    <!-- Active High-Velocity Command Panel -->
+    <div id="teleprinter-panel">
+        <div class="ticker-bar">
+            <div class="flight-line">INITIALIZING CORE PACKET LOGS... CONNECTING TO MASTER SATELLITE INTERCEPT CHANNELS...</div>
+        </div>
+        <div id="teleprinter-content" style="padding: 15px; display: flex; flex-direction: column; justify-content: space-between; height: calc(100% - 45px);">
+            <div>
+                <h1 style="font-size: 15px; letter-spacing: 1px; color: #fff; border-bottom: 2px solid #222222; padding-bottom: 5px; margin: 0 0 10px 0;">KMKO SYSTEMS MONITOR</h1>
+                <p style="font-size: 11px; color: #888; margin: 5px 0 0 0;">OPERATIONAL STAGING TRACKER:</p>
+                <p style="font-size: 13px; font-weight: bold; color: #fff; text-transform: uppercase; margin: 2px 0 10px 0;">NODE WLT-LAND-OK-5111</p>
+                <hr style="border:0; border-top:1px solid #222; margin: 8px 0;">
+                <p style="font-size: 11px; margin: 4px 0;">CORE GRID TELEMETRY: <span style="color: #39ff14;">SECURE</span></p>
+                <p style="font-size: 11px; margin: 4px 0;">OSM MAP LAYER VECTORS: <span style="color: #39ff14;">STREAMING</span></p>
+                <p style="font-size: 11px; margin: 4px 0;">DATA PACKETS PROCESSED: <span id="endless-counter" style="color: #ffff00; font-weight: bold;">8,493,021</span></p>
+            </div>
+            
+            <!-- Continuous Moving Code Live Activity Terminal Box -->
+            <div style="flex-grow: 1; margin: 15px 0; padding: 10px; background: #050507; border: 1px solid #22222b; font-size: 10px; line-height: 15px; overflow: hidden; height: 320px; display: flex; flex-direction: column-reverse; justify-content: flex-start; box-shadow: inset 0 0 10px #000;">
+                <div id="live-rolling-logs" style="color: #00ffcc; white-space: nowrap; font-family: monospace;"></div>
+            </div>
+
+            <div style="border-top: 1px solid #22222b; padding-top: 8px;">
+                <p style="font-size: 11px; color: #d4af37; margin: 0;">REGISTRY SEAL: ISSN 3143-9756</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
     // =====================================================================================
-    
-    // Zoom leveled out to 2 and centered at [20, 0] to bring the entire planet into full view instantly
+    // CORE GLOBAL RADAR ENGINE LOGIC OVERLAY
+    // =====================================================================================
     const map = L.map('radar-container', {
       zoomControl: false,
       attributionControl: false,
@@ -53,27 +66,43 @@ body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospac
       maxZoom: 18
     }).setView([20.0000, 0.0000], 2);
 
-    // STREET-LEVEL VECTOR GRID: OpenStreetMap core high-resolution base engine
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       opacity: 0.85
     }).addTo(map);
 
-    // Initialize Layer Groups for continuous tracking data streams
     const flightVectorsGroup = L.layerGroup().addTo(map);
     const masterNodesGroup = L.layerGroup().addTo(map);
 
-    // 📡 DENSE SECTOR DATA MATRIX: 40+ Color-by-Territory Infrastructure Pins packing the entire globe
+    // 📡 DENSE SECTOR DATA MATRIX: 40+ Color-by-Territory Infrastructure Pins packing the entire USA
     const expandedNodes = [
-      // 🔴 NORTH AMERICAN SECTOR (DOMESTIC COMMAND MATRIX)
+      // 🔴 NORTH AMERICAN SECTOR (COMPLETELY PACKED US RECON GRID)
       { id: "FN-USA-5111", name: "Master Staging Node Base OK-5111", sector: "North American [HQ]", lat: 35.7479, lon: -95.3697, color: "#ff3333" },
       { id: "FN-USA-0101", name: "Coastal Signal Ingestion Tower NY-01", sector: "North American", lat: 40.7128, lon: -74.0060, color: "#ff3333" },
-      { id: "FN-USA-0202", name: "Capital Core Proxy Switch DC-02", sector: "North American", lat: 38.9072, lon: -77.0369, color: "#ff3333" },
-      { id: "FN-USA-0303", name: "Pacific Data Routing Hub CA-03", sector: "North American", lat: 34.0522, lon: -118.2437, color: "#ff3333" },
-      { id: "FN-USA-0404", name: "Southeastern Uplink Grid FL-04", sector: "North American", lat: 25.7617, lon: -80.1918, color: "#ff3333" },
-      { id: "FN-USA-0505", name: "Midwest Telemetry Array IL-05", sector: "North American", lat: 41.8781, lon: -87.6298, color: "#ff3333" },
-      { id: "FN-USA-0606", name: "Gulf Frontier Data Node TX-06", sector: "North American", lat: 29.7604, lon: -95.3698, color: "#ff3333" },
-      { id: "FN-USA-0707", name: "Northwest Satellite Basin WA-07", sector: "North American", lat: 47.6062, lon: -122.3321, color: "#ff3333" },
+      { id: "FN-USA-0102", name: "Capital Core Proxy Switch DC-02", sector: "North American", lat: 38.9072, lon: -77.0369, color: "#ff3333" },
+      { id: "FN-USA-0103", name: "Pacific Data Routing Hub CA-03", sector: "North American", lat: 34.0522, lon: -118.2437, color: "#ff3333" },
+      { id: "FN-USA-0104", name: "Southeastern Uplink Grid FL-04", sector: "North American", lat: 25.7617, lon: -80.1918, color: "#ff3333" },
+      { id: "FN-USA-0105", name: "Midwest Telemetry Array IL-05", sector: "North American", lat: 41.8781, lon: -87.6298, color: "#ff3333" },
+      { id: "FN-USA-0106", name: "Gulf Frontier Data Node TX-06", sector: "North American", lat: 29.7604, lon: -95.3698, color: "#ff3333" },
+      { id: "FN-USA-0107", name: "Northwest Satellite Basin WA-07", sector: "North American", lat: 47.6062, lon: -122.3321, color: "#ff3333" },
+      { id: "FN-USA-0108", name: "Mountain Time Signal Node CO-08", sector: "North American", lat: 39.7392, lon: -104.9903, color: "#ff3333" },
+      { id: "FN-USA-0109", name: "Desert Mesh Intercept NV-09", sector: "North American", lat: 36.1716, lon: -115.1391, color: "#ff3333" },
+      { id: "FN-USA-0110", name: "Great Lakes Routing Array MI-10", sector: "North American", lat: 42.3314, lon: -83.0458, color: "#ff3333" },
+      { id: "FN-USA-0111", name: "Atlantic Edge Telemetry Hub MA-11", sector: "North American", lat: 42.3601, lon: -71.0589, color: "#ff3333" },
+      { id: "FN-USA-0112", name: "Southern Border Signal Link TX-12", sector: "North American", lat: 32.7767, lon: -96.7970, color: "#ff3333" },
+      { id: "FN-USA-0113", name: "Mid-Atlantic Distribution Tower PA-13", sector: "North American", lat: 39.9526, lon: -75.1652, color: "#ff3333" },
+      { id: "FN-USA-0114", name: "Southeastern Ingestion Node GA-14", sector: "North American", lat: 33.7490, lon: -84.3880, color: "#ff3333" },
+      { id: "FN-USA-0115", name: "Ohio River Basin Relay OH-15", sector: "North American", lat: 39.9612, lon: -82.9988, color: "#ff3333" },
+      { id: "FN-USA-0116", name: "Northern Plains Gateway MN-16", sector: "North American", lat: 44.9778, lon: -93.2650, color: "#ff3333" },
+      { id: "FN-USA-0117", name: "Central Plains Uplink Station MO-17", sector: "North American", lat: 39.0997, lon: -94.5786, color: "#ff3333" },
+      { id: "FN-USA-0118", name: "Appalachian Core Buffer VA-18", sector: "North American", lat: 37.5407, lon: -77.4360, color: "#ff3333" },
+      { id: "FN-USA-0119", name: "Pacific Northwest Sub-Node OR-19", sector: "North American", lat: 45.5152, lon: -122.6784, color: "#ff3333" },
+      { id: "FN-USA-0120", name: "Chesapeake Ingestion Center MD-20", sector: "North American", lat: 39.2904, lon: -76.6122, color: "#ff3333" },
+      { id: "FN-USA-0121", name: "Midwest Conflux Terminal IN-21", sector: "North American", lat: 39.7684, lon: -86.1581, color: "#ff3333" },
+      { id: "FN-USA-0122", name: "Tennessee Valley Relay TN-22", sector: "North American", lat: 36.1627, lon: -86.7816, color: "#ff3333" },
+      { id: "FN-USA-0123", name: "Carolina Coastal Terminal NC-23", sector: "North American", lat: 35.7796, lon: -78.6382, color: "#ff3333" },
+      { id: "FN-USA-0124", name: "Rockies Telemetry Station UT-24", sector: "North American", lat: 40.7608, lon: -111.8910, color: "#ff3333" },
+      { id: "FN-USA-0125", name: "Southwest Desert Anchor AZ-25", sector: "North American", lat: 33.4484, lon: -112.0740, color: "#ff3333" },
       
       // 🟡 EUROPEAN SECTOR (EURO-MESH)
       { id: "FN-EUR-2026", name: "Sovereign Entry Portal FR-26", sector: "European Sector", lat: 48.8566, lon: 2.3522, color: "#d4af37" },
@@ -89,105 +118,73 @@ body { background: #0a0a0c; color: #00ffcc; font-family: 'Courier New', monospac
       { id: "FN-APC-0202", name: "Southeastern Buffer Station AU-02", sector: "Asia-Pacific", lat: -33.8688, lon: 151.2093, color: "#00cc66" },
       { id: "FN-APC-0303", name: "Strait Data Ingestion Portal SG-03", sector: "Asia-Pacific", lat: 1.3521, lon: 103.8198, color: "#00cc66" },
       { id: "FN-APC-0404", name: "Himalayan Stream Ingestion IN-04", sector: "Asia-Pacific", lat: 28.6139, lon: 77.2090, color: "#00cc66" },
-      { id: "FN-APC-0505", name: "Pacific Rim Relay Anchor NZ-05", sector: "Asia-Pacific", lat: -41.2865, lon: 174.7762, color: "#00cc66" },
-      { id: "FN-APC-0606", name: "East Asian Core Switch Node KR-06", sector: "Asia-Pacific", lat: 37.5665, lon: 126.9780, color: "#00cc66" },
-      
-      // 🔵 LATIN AMERICAN SECTOR (LATAM MATRIX)
-      { id: "FN-LAT-4401", name: "Equatorial Relay Matrix BR-01", sector: "Latin American", lat: -23.5505, lon: -46.6333, color: "#00eeff" },
-      { id: "FN-LAT-0202", name: "Andean Altitude Terminal AR-02", sector: "Latin American", lat: -34.6037, lon: -58.3816, color: "#00eeff" },
-      { id: "FN-LAT-0303", name: "Isthmus Ingestion Gateway MX-03", sector: "Latin American", lat: 19.4326, lon: -99.1332, color: "#00eeff" },
-      { id: "FN-LAT-0505", name: "Pacific Coast Signal Base CL-05", sector: "Latin American", lat: -33.4489, lon: -70.6693, color: "#00eeff" },
-      { id: "FN-LAT-0606", name: "Amazon Basin Submesh PE-06", sector: "Latin American", lat: -12.0464, lon: -77.0428, color: "#00eeff" },
-      
-      // 🟣 AFRICAN/MIDDLE EASTERN SECTOR (AFME LOOP)
-      { id: "FN-AFM-9901", name: "Continental Southern Routing ZA-01", sector: "African-ME", lat: -26.2041, lon: 28.0473, color: "#cc33ff" },
-      { id: "FN-AFM-0202", name: "Nile Delta Gateway Node EG-02", sector: "African-ME", lat: 30.0444, lon: 31.2357, color: "#cc33ff" },
-      { id: "FN-AFM-0303", name: "Gulf Coast Data Terminal UAE-03", sector: "African-ME", lat: 25.2048, lon: 55.2708, color: "#cc33ff" },
-      { id: "FN-AFM-0404", name: "Rift Valley Tracking Station KE-04", sector: "African-ME", lat: -1.2921, lon: 36.8219, color: "#cc33ff" },
-      { id: "FN-AFM-0606", name: "Sub-Saharan Ingestion Tower NG-06", sector: "African-ME", lat: 6.5244, lon: 3.3792, color: "#cc33ff" }
-    ];
-
-    // Mount Global Ground Stations onto the map layout grid
-    expandedNodes.forEach(node => {
-      const marker = L.circleMarker([node.lat, node.lon], {
-        color: node.color,
-        radius: 7,
-        weight: 2,
-        fillColor: node.color,
-        fillOpacity: 0.8
-      }).addTo(masterNodesGroup);
-
-      // Interactive Click Event to instantly update the side cockpit panel info lines
-      marker.on('click', () => {
-        const sidePanel = document.getElementById('teleprinter-panel');
-        if(sidePanel) {
-          // Re-generates the entire side panel layout text blocks on click flawlessly
-          sidePanel.innerHTML = `
-            <div style="padding: 15px; font-family: 'Courier New', monospace; color: #00ffcc;">
-              <h1 style="font-size: 16px; letter-spacing: 1px; color: #fff; border-bottom: 2px solid #222222; padding-bottom: 5px;">KMKO SYSTEMS MONITOR</h1>
-              <p style="font-size: 11px; margin-top: 10px; color: #888;">TARGET INTERCEPTED:</p>
-              <p style="font-size: 13px; font-weight: bold; color: #fff; text-transform: uppercase;">${node.name}</p>
-              <hr style="border:0; border-top:1px solid #222; margin: 10px 0;">
-              <p style="font-size: 12px;">SECTOR: <span style="color: #00eeff;">${node.sector}</span></p>
-              <p style="font-size: 12px;">NODE ID: <span style="color: #00eeff;">${node.id}</span></p>
-              <p style="font-size: 12px;">LAT/LON: <span style="color: #ffff00;">${node.lat.toFixed(4)}, ${node.lon.toFixed(4)}</span></p>
-              <p style="font-size: 12px;">STATUS: <span style="color: #39ff14;">ACTIVE // STREAM SECURE</span></p>
-              <p style="font-size: 11px; margin-top: 20px; color: #d4af37; border-top: 1px solid #222; padding-top: 10px;">REGISTRY SEAL: ISSN 3143-9756</p>
-            </div>
-          `;
-        }
-      });
-
-      // Default popup backup layer
-      marker.bindPopup(`<b style="font-family:monospace; color:#fff;">${node.name}</b><br><span style="font-family:monospace; color:#00eeff;">ID: ${node.id}</span>`);
-    });
-
-    // HIGH-VELOCITY FLIGHT TRANSIT AND SIGNAL SWARM MOTOR
-    const teleprinterStream = document.querySelector('.flight-line');
-    let frameAngle = 0;
-
-    function runOmniGlobalDiagnostics() {
-      frameAngle += 0.02;
-      
-      // Update running line text ticker content inside the header panel
-      if(teleprinterStream) {
-        teleprinterStream.innerText = `SYS-GRID LATENCY: ${(14 + Math.sin(frameAngle) * 3).toFixed(1)}ms // SECURE MATRIX FEED ACTIVE // LEDGER REGISTERED: ISSN 3143-9756 // GLOBAL COGNIZANCE MAP OPERATIONAL...`;
-      }
-
-      // Clear old vector frames for clean animation loop
-      flightVectorsGroup.clearLayers();
-
-      // ✈️ GLOBAL FLIGHT TRANSIT SWARMS: Spawns high-velocity moving data orbits over every continent
-      expandedNodes.forEach((node, index) => {
-        // Broad sinusoidal orbits to push flight streams way out across the open oceans
-        const flightLat = node.lat + Math.sin(frameAngle + (index * 1.5)) * 6.0;
-        const flightLon = node.lon + Math.cos(frameAngle + (index * 1.5)) * 9.0;
-
-        const flightMarker = L.circleMarker([flightLat, flightLon], {
-          color: '#39ff14', // Glowing green signal swarm colors for high user visibility
-          radius: 4,
-          weight: 1,
-          fillColor: '#39ff14',
-          fillOpacity: 0.9
-        }).addTo(flightVectorsGroup);
-
-        flightMarker.bindPopup(`
-          <div style="font-family: monospace; font-size: 11px; color: #39ff14;">
-            <b>ACTIVE VECTOR SWARM: SWM-${node.id.split('-')[2]}</b><br>
-            TELEMETRY BEACON: OPENSTREETMAP INTERFACED<br>
-            REGISTRY DATA LOG: ISSN 3143-9756
-          </div>
-        `);
-      });
-
-      requestAnimationFrame(runOmniGlobalDiagnostics);
-    }
-
-    // Launch core global systems automation motor
-    runOmniGlobalDiagnostics();
-    </script>
-  </body>
-</html>
-
-
-
+{ id: "FN-APC-0505", name: "Pacific Rim Relay Anchor NZ-05", sector: "Asia-Pacific", lat: -41.2865, lon: 174.7762, color: "#00cc66" },
+{ id: "FN-APC-0606", name: "East Asian Core Switch Node KR-06", sector: "Asia-Pacific", lat: 37.5665, lon: 126.9780, color: "#00cc66" },
+// 🔵 LATIN AMERICAN SECTOR (LATAM MATRIX)
+{ id: "FN-LAT-4401", name: "Equatorial Relay Matrix BR-01", sector: "Latin American", lat: -23.5505, lon: -46.6333, color: "#00eeff" },
+{ id: "FN-LAT-0202", name: "Andean Altitude Terminal AR-02", sector: "Latin American", lat: -34.6037, lon: -58.3816, color: "#00eeff" },
+{ id: "FN-LAT-0303", name: "Isthmus Ingestion Gateway MX-03", sector: "Latin American", lat: 19.4326, lon: -99.1332, color: "#00eeff" },
+{ id: "FN-LAT-0505", name: "Pacific Coast Signal Base CL-05", sector: "Latin American", lat: -33.4489, lon: -70.6693, color: "#00eeff" },
+{ id: "FN-LAT-0606", name: "Amazon Basin Submesh PE-06", sector: "Latin American", lat: -12.0464, lon: -77.0428, color: "#00eeff" },
+// 🟣 AFRICAN/MIDDLE EASTERN SECTOR (AFME LOOP)
+{ id: "FN-AFM-9901", name: "Continental Southern Routing ZA-01", sector: "African-ME", lat: -26.2041, lon: 28.0473, color: "#cc33ff" },
+{ id: "FN-AFM-0202", name: "Nile Delta Gateway Node EG-02", sector: "African-ME", lat: 30.0444, lon: 31.2357, color: "#cc33ff" },
+{ id: "FN-AFM-0303", name: "Gulf Coast Data Terminal UAE-03", sector: "African-ME", lat: 25.2048, lon: 55.2708, color: "#cc33ff" },
+{ id: "FN-AFM-0404", name: "Rift Valley Tracking Station KE-04", sector: "African-ME", lat: -1.2921, lon: 36.8219, color: "#cc33ff" },
+{ id: "FN-AFM-0606", name: "Sub-Saharan Ingestion Tower NG-06", sector: "African-ME", lat: 6.5244, lon: 3.3792, color: "#cc33ff" }
+];
+// Mount Pins with Instant Manual Click Targets
+expandedNodes.forEach(node => {
+const marker = L.circleMarker([node.lat, node.lon], {
+color: node.color,
+radius: 7,
+weight: 2,
+fillColor: node.color,
+fillOpacity: 0.8
+}).addTo(masterNodesGroup);
+marker.on('click', () => {
+const textConsole = document.getElementById('live-rolling-logs');
+if(textConsole) {
+textConsole.innerHTML = <div style="color: #fff; border-left: 2px solid ${node.color}; padding-left: 5px; margin: 4px 0;">> INTERCEPTED TARGET NODE:<br>NAME: ${node.name}<br>COORD: ${node.lat.toFixed(4)}, ${node.lon.toFixed(4)}<br>ID: ${node.id} // SECURE</div> + textConsole.innerHTML;
+}
+});
+marker.bindPopup(<b style="font-family:monospace; color:#fff;">${node.name}</b><br><span style="font-family:monospace; color:#00eeff;">ID: ${node.id}</span>);
+});
+// CONTINUOUS LIVE RECON DATA TICKER MOTOR
+const teleprinterStream = document.querySelector('.flight-line');
+const logConsole = document.getElementById('live-rolling-logs');
+let frameAngle = 0;
+let packetCount = 8493021;
+function runOmniGlobalDiagnostics() {
+frameAngle += 0.02;
+packetCount += Math.floor(Math.random() * 3) + 1; // Endless rolling math packet execution count ticker
+if(teleprinterStream) {
+teleprinterStream.innerText = SYS-LATENCY METRIC: ${(13 + Math.sin(frameAngle) * 2).toFixed(1)}ms // LIVE VECTOR NETWORKS ENGAGED // METADATA REGISTRY: ISSN 3143-9756 // COMPLIANCE MATRIX SAFE...;
+}
+const counterEl = document.getElementById('endless-counter');
+if(counterEl) counterEl.innerText = packetCount.toLocaleString();
+// Continuous data typewriter generation stream (never stops counting, never stops moving)
+if (logConsole && Math.random() < 0.15) {
+const randomNode = expandedNodes[Math.floor(Math.random() * expandedNodes.length)];
+const logLine = <div style="color: ${randomNode.color}; margin: 2px 0;">> BROADCAST DISPATCH VIA ${randomNode.id} [${(Math.random()*4+1).toFixed(1)}ms]</div>;
+logConsole.innerHTML = logLine + logConsole.innerHTML;
+if (logConsole.children.length > 18) {
+logConsole.removeChild(logConsole.lastChild);
+}
+}
+// Animating the live flying signal paths across oceans
+flightVectorsGroup.clearLayers();
+expandedNodes.forEach((node, index) => {
+const flightLat = node.lat + Math.sin(frameAngle + (index * 1.5)) * 6.0;
+const flightLon = node.lon + Math.cos(frameAngle + (index * 1.5)) * 9.0;
+L.circleMarker([flightLat, flightLon], {
+color: '#39ff14',
+radius: 3.5,
+weight: 1,
+fillColor: '#39ff14',
+fillOpacity: 0.85
+}).addTo(flightVectorsGroup);
+});
+requestAnimationFrame(runOmniGlobalDiagnostics);
+}
+runOmniGlobalDiagnostics();
