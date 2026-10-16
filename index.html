@@ -108,6 +108,85 @@ const issTracker = L.circleMarker([37.0000, -95.0000], {
   fillOpacity: 1
 }).addTo(map);
 issTracker.bindPopup("<b>LIVE SATELLITE: ISS</b><br>Fetching orbital coordinates...");
+      // =====================================================================================
+    // F-L-O GLOBAL INFRASTRUCTURE DATA MATRIX — FOR INJECTION INTO MONITOR SCRIPT
+    // LEDGER REGISTERED: FAMO-LEGACY OMNISPHERE INTELLIGENCE BUREAU // ISSN 3143-9756
+    // =====================================================================================
+    const globalTrackingNodes = [
+      // 🔴 NORTH AMERICAN SECTOR (DOMESTIC COMMAND MATRIX)
+      { id: "FN-USA-5111", name: "Master Staging Node Base OK-5111", sector: "North American", lat: 35.7479, lon: -95.3697, color: "#ff3333" },
+      { id: "FN-USA-0101", name: "Coastal Signal Ingestion Tower NY-01", sector: "North American", lat: 40.7128, lon: -74.0060, color: "#ff3333" },
+      { id: "FN-USA-0202", name: "Capital Core Proxy Switch DC-02", sector: "North American", lat: 38.9072, lon: -77.0369, color: "#ff3333" },
+      { id: "FN-USA-0303", name: "Pacific Data Routing Hub CA-03", sector: "North American", lat: 34.0522, lon: -118.2437, color: "#ff3333" },
+      { id: "FN-USA-0404", name: "Southeastern Uplink Grid FL-04", sector: "North American", lat: 25.7617, lon: -80.1918, color: "#ff3333" },
+      { id: "FN-USA-0505", name: "Midwest Telemetry Array IL-05", sector: "North American", lat: 41.8781, lon: -87.6298, color: "#ff3333" },
+      { id: "FN-USA-0606", name: "Gulf Frontier Data Node TX-06", sector: "North American", lat: 29.7604, lon: -95.3698, color: "#ff3333" },
+      { id: "FN-USA-0707", name: "Northwest Satellite Basin WA-07", sector: "North American", lat: 47.6062, lon: -122.3321, color: "#ff3333" },
+      { id: "FN-USA-0808", name: "Mountain Time Signal Node CO-08", sector: "North American", lat: 39.7392, lon: -104.9903, color: "#ff3333" },
+      { id: "FN-USA-0909", name: "Desert Mesh Intercept NV-09", sector: "North American", lat: 36.1716, lon: -115.1391, color: "#ff3333" },
+
+      // 🟡 EUROPEAN SECTOR (EURO-MESH)
+      { id: "FN-EUR-2026", name: "Sovereign Entry Portal FR-26", sector: "European", lat: 48.8566, lon: 2.3522, color: "#d4af37" },
+      { id: "FN-EUR-0111", name: "Transatlantic Transmit Matrix UK-11", sector: "European", lat: 51.5074, lon: -0.1278, color: "#d4af37" },
+      { id: "FN-EUR-0212", name: "Central Alpine Relay Node CH-12", sector: "European", lat: 46.8182, lon: 8.2275, color: "#d4af37" },
+      { id: "FN-EUR-0313", name: "Baltic Submesh Concentrator DE-13", sector: "European", lat: 52.5200, lon: 13.4050, color: "#d4af37" },
+      { id: "FN-EUR-0414", name: "Mediterranean Signal Vault IT-14", sector: "European", lat: 41.9028, lon: 12.4964, color: "#d4af37" },
+      { id: "FN-EUR-0515", name: "Iberian Peninsula Terminal ES-15", sector: "European", lat: 40.4168, lon: -3.7038, color: "#d4af37" },
+      { id: "FN-EUR-0616", name: "North Sea Fiber Anchor NL-16", sector: "European", lat: 52.3676, lon: 4.9041, color: "#d4af37" },
+      { id: "FN-EUR-0717", name: "Scandic Crypto Ledger SE-17", sector: "European", lat: 59.3293, lon: 18.0686, color: "#d4af37" },
+      { id: "FN-EUR-0818", name: "Aegean Broadcast Corridor GR-18", sector: "European", lat: 37.9838, lon: 23.7275, color: "#d4af37" },
+
+      // 🟢 ASIA-PACIFIC SECTOR (APAC CONDUIT)
+      { id: "FN-APC-8801", name: "High-Velocity Ingestion Hub JP-01", sector: "Asia-Pacific", lat: 35.6762, lon: 139.6503, color: "#00cc66" },
+      { id: "FN-APC-0202", name: "Southeastern Buffer Station AU-02", sector: "Asia-Pacific", lat: -33.8688, lon: 151.2093, color: "#00cc66" },
+      { id: "FN-APC-0303", name: "Strait Data Ingestion Portal SG-03", sector: "Asia-Pacific", lat: 1.3521, lon: 103.8198, color: "#00cc66" },
+      { id: "FN-APC-0404", name: "Himalayan Stream Ingestion IN-04", sector: "Asia-Pacific", lat: 28.6139, lon: 77.2090, color: "#00cc66" },
+      { id: "FN-APC-0505", name: "Pacific Rim Relay Anchor NZ-05", sector: "Asia-Pacific", lat: -41.2865, lon: 174.7762, color: "#00cc66" },
+      { id: "FN-APC-0606", name: "East Asian Core Switch Node KR-06", sector: "Asia-Pacific", lat: 37.5665, lon: 126.9780, color: "#00cc66" },
+      { id: "FN-APC-0707", name: "Mekong Ingestion Station TH-07", sector: "Asia-Pacific", lat: 13.7563, lon: 100.5018, color: "#00cc66" },
+      { id: "FN-APC-0808", name: "Sunda Shelf Sub-Node ID-08", sector: "Asia-Pacific", lat: -6.2088, lon: 106.8456, color: "#00cc66" },
+
+      // 🔵 LATIN AMERICAN SECTOR (LATAM MATRIX)
+      { id: "FN-LAT-4401", name: "Equatorial Relay Matrix BR-01", sector: "Latin American", lat: -23.5505, lon: -46.6333, color: "#00eeff" },
+      { id: "FN-LAT-0202", name: "Andean Altitude Terminal AR-02", sector: "Latin American", lat: -34.6037, lon: -58.3816, color: "#00eeff" },
+      { id: "FN-LAT-0303", name: "Isthmus Ingestion Gateway MX-03", sector: "Latin American", lat: 19.4326, lon: -99.1332, color: "#00eeff" },
+      { id: "FN-LAT-0404", name: "Caribbean Vector Junction PR-04", sector: "Latin American", lat: 18.4655, lon: -66.1057, color: "#00eeff" },
+      { id: "FN-LAT-0505", name: "Pacific Coast Signal Base CL-05", sector: "Latin American", lat: -33.4489, lon: -70.6693, color: "#00eeff" },
+      { id: "FN-LAT-0606", name: "Amazon Basin Submesh PE-06", sector: "Latin American", lat: -12.0464, lon: -77.0428, color: "#00eeff" },
+      { id: "FN-LAT-0707", name: "Panama Canal Routing Link PA-07", sector: "Latin American", lat: 8.9824, lon: -79.5199, color: "#00eeff" },
+
+      // 🟣 AFRICAN/MIDDLE EASTERN SECTOR (AFME LOOP)
+      { id: "FN-AFM-9901", name: "Continental Southern Routing ZA-01", sector: "African-ME", lat: -26.2041, lon: 28.0473, color: "#cc33ff" },
+      { id: "FN-AFM-0202", name: "Nile Delta Gateway Node EG-02", sector: "African-ME", lat: 30.0444, lon: 31.2357, color: "#cc33ff" },
+      { id: "FN-AFM-0303", name: "Gulf Coast Data Terminal UAE-03", sector: "African-ME", lat: 25.2048, lon: 55.2708, color: "#cc33ff" },
+      { id: "FN-AFM-0404", name: "Rift Valley Tracking Station KE-04", sector: "African-ME", lat: -1.2921, lon: 36.8219, color: "#cc33ff" },
+      { id: "FN-AFM-0505", name: "Levant Stream Concentrator IL-05", sector: "African-ME", lat: 32.0853, lon: 34.7818, color: "#cc33ff" },
+      { id: "FN-AFM-0606", name: "Sub-Saharan Ingestion Tower NG-06", sector: "African-ME", lat: 6.5244, lon: 3.3792, color: "#cc33ff" },
+      { id: "FN-AFM-0707", name: "Maghreb Coast Signal Proxy MA-07", sector: "African-ME", lat: 33.5731, lon: -7.5898, color: "#cc33ff" }
+    ];
+
+    // AUTOMATED INTERACTIVE MESH GENERATOR
+    globalTrackingNodes.forEach(node => {
+      const nodeMarker = L.circleMarker([node.lat, node.lon], {
+        color: node.color,
+        radius: 7,
+        weight: 2,
+        fillColor: node.color,
+        fillOpacity: 0.75
+      }).addTo(map);
+
+      nodeMarker.bindPopup(`
+        <div style="font-family: monospace; color: #ff00cc; font-size: 11px;">
+          <b style="font-size: 13px; color: #fff; text-transform: uppercase;">${node.name}</b><br>
+          <hr style="border: 0; border-top: 1px solid #222; margin: 4px 0;">
+          SECTOR: <span style="color: #00eeff;">${node.sector}</span><br>
+          NODE ID: <span style="color: #00eeff;">${node.id}</span><br>
+          LATENCY: <span style="color: #39ff14;">ACTIVE (UPLINK SECURE)</span><br>
+          REGISTRY SEAL: <span style="color: #d4af37;">ISSN 3143-9756</span>
+        </div>
+      `);
+    });
+
 
   function runSystemDiagnostics() {
 try {
